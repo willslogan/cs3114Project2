@@ -1,5 +1,5 @@
 
-public class InternalNode extends QuadNode {
+public class InternalNode implements QuadNode {
     private QuadNode NE;
     private QuadNode NW;
     private QuadNode SE;
@@ -32,5 +32,35 @@ public class InternalNode extends QuadNode {
     
     public QuadNode getSW() {
         return SW;
+    }
+
+    @Override
+    public QuadNode insert(Point point) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public QuadNode remove(Point point) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void dump() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void duplicates() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void regionsearch(int x, int y, int w, int h) {
+        // TODO Auto-generated method stub
+        
     }
 }

@@ -1,18 +1,18 @@
-public class QuadNode {
-    private static EmptyNode flyweight = null;
 
-    private class EmptyNode {
-
-        private EmptyNode() {
-
-        }
+public interface QuadNode {
+    // Define all the functionality a node should have.
+    public QuadNode insert(Point point);
 
 
-        public EmptyNode getInstance() {
-            if (flyweight == null) {
-                return new EmptyNode();
-            }
-            return flyweight;
-        }
-    }
+    public QuadNode remove(Point point);
+
+
+    public void dump();
+
+
+    public void duplicates();
+
+
+    public void regionsearch(int x, int y, int w, int h);
+
 }

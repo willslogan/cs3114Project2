@@ -1,13 +1,10 @@
 
-public class LeafNode implements QuadNode {
-    private Point point;
+
+public class EmptyNode implements QuadNode{
+    public static final EmptyNode flyweight = new EmptyNode();
     
-    public LeafNode(Point point) {
-        this.point = point;
-    }
-    
-    public Point getPoint() {
-        return point;
+    private EmptyNode() {
+
     }
 
     @Override
@@ -39,4 +36,5 @@ public class LeafNode implements QuadNode {
         // TODO Auto-generated method stub
         
     }
+   
 }

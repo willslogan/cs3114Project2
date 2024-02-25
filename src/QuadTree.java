@@ -1,4 +1,4 @@
-
+//Treat as like database class 
 public class QuadTree {
     private QuadNode root;
     
