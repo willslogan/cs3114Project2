@@ -30,13 +30,14 @@ public class QuadTreeTest extends TestCase {
     public void testInsert() {
         //Test 0
         systemOut().clearHistory();
-        database.dump();
+        assertEquals(1, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024: Empty", systemOut().getHistory());
+        
         
         //Test 1
         database.insert(point1);
         systemOut().clearHistory();
-        database.dump();
+        assertEquals(1, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024:\n(point1, 500, 250", systemOut().getHistory());
         
         //Test 2
@@ -44,7 +45,7 @@ public class QuadTreeTest extends TestCase {
         database.insert(point3);
         database.insert(point4);
         systemOut().clearHistory();
-        database.dump();
+        assertEquals(5, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024: Internal"
             + "\nNode at 0, 0, 512:"
             + "\n(point1, 500, 250)"
@@ -61,7 +62,7 @@ public class QuadTreeTest extends TestCase {
         database.insert(point1);
         database.insert(point1);
         systemOut().clearHistory();
-        database.dump();
+        assertEquals(5, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024: Internal"
             + "\nNode at 0, 0, 512:"
             + "\n(point1, 500, 250)"
@@ -80,7 +81,7 @@ public class QuadTreeTest extends TestCase {
         database.insert(point5);
         database.insert(point6);
         systemOut().clearHistory();
-        database.dump();
+        assertEquals(9, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024: Internal"
             + "\nNode at 0, 0, 512: Internal"
             + "\nNode at 0, 0, 256:"

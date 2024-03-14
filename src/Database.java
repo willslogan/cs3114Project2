@@ -220,7 +220,8 @@ public class Database {
         System.out.println("SkipList Dump:");
         list.dump();
         System.out.println("QuadTree Dump:");
-        quadtreeDB.dump();
+        int numNodes = quadtreeDB.dump();
+        System.out.println(numNodes + "quadtree nodes printed");
     }
     
     public void duplicates() {
