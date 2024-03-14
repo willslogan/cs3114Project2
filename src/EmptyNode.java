@@ -1,16 +1,23 @@
 
 
 public class EmptyNode implements QuadNode{
-    public static final EmptyNode flyweight = new EmptyNode();
+    private static EmptyNode flyweight = null;
     
     private EmptyNode() {
 
     }
-
+    
+    public static EmptyNode getInstance() {
+        if (flyweight == null) {
+            flyweight = new EmptyNode();
+        }
+        return flyweight;
+    }
     @Override
-    public QuadNode insert(Point point) {
-        // TODO Auto-generated method stub
-        return null;
+    public QuadNode insert(Point point, Rectangle region) {
+        LeafNode node = new LeafNode();
+        node.insert(point, region);
+        return node;
     }
 
     @Override
@@ -20,8 +27,14 @@ public class EmptyNode implements QuadNode{
     }
 
     @Override
-    public void dump() {
+    public int dump(Rectangle region, int indents, int count) {
         // TODO Auto-generated method stub
+        String indentsString = "";
+        for(int i = 0; i < indents; i++) {
+            indentsString += " ";
+        }
+        System.out.println(indentsString + "Node at " + region + ": Empty");
+        return 0;
         
     }
 
@@ -33,7 +46,13 @@ public class EmptyNode implements QuadNode{
 
     @Override
     public void regionsearch(int x, int y, int w, int h) {
-        // TODO Auto-generated method stub
+        return;
+        
+    }
+
+    @Override
+    public void search(String name) {
+        return;
         
     }
    
