@@ -27,14 +27,14 @@ public class EmptyNode implements QuadNode{
     }
 
     @Override
-    public int dump(Rectangle region, int indents, int count) {
+    public int dump(Rectangle region, int indents) {
         // TODO Auto-generated method stub
         String indentsString = "";
         for(int i = 0; i < indents; i++) {
-            indentsString += " ";
+            indentsString += "\t";
         }
         System.out.println(indentsString + "Node at " + region + ": Empty");
-        return 0;
+        return 1;
         
     }
 

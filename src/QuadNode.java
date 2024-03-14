@@ -7,7 +7,7 @@ public interface QuadNode {
     public QuadNode remove(Point point);
 
 
-    public int dump(Rectangle region, int indents, int numNodes);
+    public int dump(Rectangle region, int indents);
 
 
     public void duplicates();

@@ -15,8 +15,8 @@ public class QuadTree {
         return null;
     }
     
-    public void dump(int indents, int numNodes) {
-        root.dump(defaultRegion, indents, numNodes);
+    public int dump() {
+        return root.dump(defaultRegion, 0);
     }
     
     public void duplicates() {
