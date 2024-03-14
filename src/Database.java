@@ -222,5 +222,9 @@ public class Database {
         System.out.println("QuadTree Dump:");
         quadtreeDB.dump();
     }
+    
+    public void duplicates() {
+        
+    }
 
 }
