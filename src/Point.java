@@ -59,7 +59,6 @@ public class Point {
         return name;
     }
 
-
     /**
      * Checks if two points are equal. Points are considered equal if they have
      * the same x and y coordinate
@@ -112,7 +111,7 @@ public class Point {
      * @return true if the points has valid parameters, false if not 
      */
     public boolean isValid() {
-        if (getX() < 0) {
+        if(getX() < 0) {
             return false;
         }
         if (getY() < 0) {

@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 public class InternalNode implements QuadNode {
     private QuadNode NE;
     private QuadNode NW;
@@ -86,9 +87,45 @@ public class InternalNode implements QuadNode {
     }
 
     @Override
-    public QuadNode remove(Point point) {
+    public Point remove(int x, int y, Rectangle region) {
         // TODO Auto-generated method stub
-        return null;
+        int regionXMidpoint = (region.getxCoordinate() + region.getSize() / 2);
+        int regionYMidpoint = (region.getyCoordinate() + region.getSize() / 2);
+        Rectangle updateRegion;
+        Point removed;
+        //Left side
+        if(x < regionXMidpoint) {
+            //Top left
+            if(y < regionYMidpoint) {
+                updateRegion = new Rectangle(region.getxCoordinate(), region.getyCoordinate(), region.getSize()/2);
+                removed = NW.remove(x, y, updateRegion);
+                merge();
+            }
+            //Bottom left
+            else {
+                updateRegion = new Rectangle(region.getxCoordinate(), regionYMidpoint, region.getSize() / 2);
+                removed = SW.remove(x, y, updateRegion);
+                merge();
+            }
+        }
+        //Right Side
+        else {
+            //Top Right
+            if(y < regionYMidpoint) {
+                updateRegion = new Rectangle(regionXMidpoint, region.getyCoordinate(), region.getSize() / 2);
+                removed = NE.remove(x, y, updateRegion);
+                merge();
+            }
+            //Bottom Right
+            else {
+                updateRegion = new Rectangle(regionXMidpoint, regionYMidpoint, region.getSize() / 2);
+                removed = SE.remove(x, y, updateRegion);
+                merge();
+            }
+        }
+        
+        return removed;
+        
     }
 
     @Override
@@ -128,7 +165,10 @@ public class InternalNode implements QuadNode {
     @Override
     public void duplicates() {
         // TODO Auto-generated method stub
-        
+        NW.duplicates();
+        NE.duplicates();
+        SW.duplicates();
+        SE.duplicates();
     }
 
     @Override
@@ -188,5 +228,38 @@ public class InternalNode implements QuadNode {
         else {
             return true;
         }
+    }
+
+    @Override
+    public int numUniquePoints() {
+        return NW.numUniquePoints() + NE.numUniquePoints() + SW.numUniquePoints() + SE.numUniquePoints();
+    }
+    
+    public QuadNode merge() {
+        setNW(NW.merge());
+        setNE(NE.merge());
+        setSW(SW.merge());
+        setSE(SE.merge());
+        
+        if(numUniquePoints() <= 3) {
+            ArrayList<Point> points = pointsContained();
+            LeafNode merged = new LeafNode();
+            for(int i = 0; i<points.size(); i++) {
+                merged.insert(points.get(i), region);
+            }
+            return merged;
+        }
+        
+        return this;
+    }
+
+    @Override
+    public ArrayList<Point> pointsContained() {
+        ArrayList<Point> combinedPoints = new ArrayList<Point>();
+        combinedPoints.addAll(NW.pointsContained());
+        combinedPoints.addAll(NE.pointsContained());
+        combinedPoints.addAll(SW.pointsContained());
+        combinedPoints.addAll(SE.pointsContained());
+        return combinedPoints;
     }
 }

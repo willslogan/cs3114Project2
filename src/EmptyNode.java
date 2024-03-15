@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class EmptyNode implements QuadNode{
     private static EmptyNode flyweight = null;
@@ -21,7 +21,7 @@ public class EmptyNode implements QuadNode{
     }
 
     @Override
-    public QuadNode remove(Point point) {
+    public Point remove(int x, int y, Rectangle region) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -40,7 +40,6 @@ public class EmptyNode implements QuadNode{
 
     @Override
     public void duplicates() {
-        // TODO Auto-generated method stub
         
     }
 
@@ -55,5 +54,21 @@ public class EmptyNode implements QuadNode{
         return;
         
     }
+
+    @Override
+    public int numUniquePoints() {
+        return 0;
+    }
+
+    @Override
+    public ArrayList<Point> pointsContained() {
+        return null;
+    }
+
+    @Override
+    public QuadNode merge() {
+        return this;
+    }
+
    
 }

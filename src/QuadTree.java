@@ -11,8 +11,9 @@ public class QuadTree {
         this.root = this.root.insert(point, defaultRegion);
     }
     
-    public QuadNode remove(Point point) {
-        return null;
+    public Point remove(int x, int y) {
+        Point removed = root.remove(x, y, defaultRegion);
+        return removed;
     }
     
     public int dump() {
@@ -20,7 +21,7 @@ public class QuadTree {
     }
     
     public void duplicates() {
-        
+        root.duplicates();
     }
     
     public void search(String name) {
