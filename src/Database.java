@@ -58,7 +58,7 @@ public class Database {
         if (!Character.isLetter(firstChar)) {
             System.out.println("Point rejected: " + currentPoint);
         }
-        else if (currentPoint.isInvalid()) {
+        else if (!currentPoint.isValid()) {
             System.out.println("Point rejected: " + currentPoint);
         }
 
@@ -128,28 +128,24 @@ public class Database {
      *            height of the rectangle to be removed
      */
     public void remove(int x, int y) {
-//        Rectangle tempRec = new Rectangle(x, y, w, h);
-//        // Case where dimensions given are invalid
-//        if (tempRec.isInvalid()) {
-//            System.out.println("Rectangle rejected: (" + tempRec.toString()
-//                + ")");
-//            return;
-//        }
-//
-//        // Making temp variables to make life easier
-//        KVPair<String, Rectangle> tempKVPair = list.removeByValue(tempRec);
-//
-//        // Case where Rectangle is found
-//        if (tempKVPair != null) {
-//            System.out.println("Rectangle removed: (" + tempKVPair.toString()
-//                + ")");
-//        }
-//
-//        // Case where rectangle is not found
-//        else {
-//            System.out.println("Rectangle not found: (" + tempRec.toString()
-//                + ")");
-//        }
+        Point temp = new Point(x, y, "temp");
+        // Case where dimensions given are invalid
+        if (temp.isValid()) {
+            System.out.println("Point rejected: (" + x + ", " + y + ")");
+            return;
+        }
+        // Making temp variables to make life easier
+        Point removed = quadtreeDB.remove(x,y);
+
+        // Case where point is found
+        if (removed != null) {
+            System.out.println("Point removed: " + removed);
+        }
+
+        // Case where point is not found
+        else {
+            System.out.println("Point not found: (" + x + ", " + y + ")");
+        }
     }
 
 

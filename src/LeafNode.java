@@ -14,17 +14,32 @@ public class LeafNode implements QuadNode {
         return points;
     }
 
-
-    private int numUniquePoints() {
+    @Override
+    public int numUniquePoints() {
         int count = 0;
         for (int i = 0; i < unique.length; i++) {
-            if (unique[i] != null) {
-                count++;
+            if (unique[i] == null) {
+              break;  
             }
+            count++;
         }
+        
+        //----------------------
+        for(int i = 0; i < unique.length; i++) {
+            System.out.print(unique[i] + " ");
+        }
+        System.out.println();
+        System.out.println(count);
         return count;
     }
-
+    private boolean contains(Point point) {
+        for(int i = 0; i < unique.length; i++) {
+            if(unique[i].equals(point)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void addPoint(Point point) {
         for (int i = 0; i < unique.length; i++) {
@@ -44,7 +59,7 @@ public class LeafNode implements QuadNode {
 
     @Override
     public QuadNode insert(Point point, Rectangle region) {
-        if (numUniquePoints() < 3) {
+        if (numUniquePoints() < 3 || contains(point)) {
             // Don't split
             addPoint(point);
             return this;
@@ -65,9 +80,21 @@ public class LeafNode implements QuadNode {
 
 
     @Override
-    public QuadNode remove(Point point) {
+    public Point remove(int x, int y, Rectangle region) {
         // TODO Auto-generated method stub
-        return null;
+        Point removed = null;
+        for(int i = 0; i<points.size(); i++) {
+            
+            if(points.get(i).getX() == x && points.get(i).getY() == y) {
+                removed = points.remove(i);
+                updateUnique();
+                break;
+            }
+        }
+        
+        
+        
+        return removed;
     }
 
 
@@ -90,14 +117,23 @@ public class LeafNode implements QuadNode {
     @Override
     public void duplicates() {
         // TODO Auto-generated method stub
+        int dupCount;
         for (int i = 0; i < unique.length; i++) {
+            if (unique[i] == null) {
+                break;
+            }
+            dupCount = 0;
             for (int j = 0; j < points.size(); j++) {
-
+                if (unique[i].equals(points.get(j))) {
+                    dupCount++;
+                    if (dupCount > 1) {
+                        System.out.println("(" + unique[i].getX() + ", "
+                            + unique[i].getY() + ")");
+                        break;
+                    }
+                }
             }
 
-            for (int j = 0; j < points.size(); j++) {
-
-            }
         }
 
     }
@@ -136,4 +172,42 @@ public class LeafNode implements QuadNode {
         }
         return false;
     }
+
+
+    @Override
+    public ArrayList<Point> pointsContained() {
+        return points;
+    }
+    
+    private void updateUnique() {
+        Point[] uniqueUpdate = new Point[3];
+        int index = 0;
+        for(int i = 0; i<points.size(); i++) {
+            if(contains(uniqueUpdate, points.get(index))) {
+                unique[i] = points.get(index);
+                index++;
+            }
+        }
+        unique = uniqueUpdate;
+    }
+    
+    private boolean contains(Point[] uniqueUpdate, Point p) {
+        for(int i = 0; i< uniqueUpdate.length; i++) {
+            if(p.equals(uniqueUpdate[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    @Override
+    public QuadNode merge() {
+        if(points.size() == 0) {
+            return EmptyNode.getInstance();
+        }
+        return this;
+    }
+
+
 }

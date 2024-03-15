@@ -313,4 +313,73 @@ public class QuadTreeTest extends TestCase {
         
         
     }
+    
+    public void testDuplicates() {
+        //Test 0 with nothing in it
+        systemOut().clearHistory();
+        database.duplicates();
+        assertFuzzyEquals("", systemOut().getHistory());
+        
+        //Test 1 with 1 item no duplicates
+        database.insert(point1);
+        systemOut().clearHistory();
+        database.duplicates();
+        assertFuzzyEquals("", systemOut().getHistory());
+        
+        //Test 2 with actual dups leaf
+        database.insert(point1);
+        systemOut().clearHistory();
+        database.duplicates();
+        assertFuzzyEquals("(500, 250)", systemOut().getHistory());
+        
+        //Test 3 full leaf node case
+        database.insert(point2);
+        database.insert(point3);
+        systemOut().clearHistory();
+        database.duplicates();
+        assertFuzzyEquals("(500, 250)", systemOut().getHistory());
+        
+        //Test 4 full leafnode multiple duplicates
+        database.insert(point2);
+        database.insert(point3);
+        database.insert(point2);
+        database.insert(point3);
+        systemOut().clearHistory();
+        database.duplicates();
+        assertFuzzyEquals("(500, 250)\n(750, 580)\n(120, 896)", systemOut().getHistory());
+        
+        //Test 4 internal nodes now
+        database.insert(point4);
+        systemOut().clearHistory();
+        database.duplicates();
+        assertFuzzyEquals("(500, 250)\n(120, 896)\n(750, 580)", systemOut().getHistory());
+        
+        database.insert(point1);
+        database.insert(point1);
+        database.insert(point1);
+        database.insert(point1);
+        database.insert(point5);
+        database.insert(point6);
+        database.insert(point7);
+        database.insert(point8);
+        database.insert(point9);
+        database.insert(point10);
+        
+    }
+    
+    public void testRemoveByValue() {
+        database.insert(point1);
+        database.insert(point2);
+        database.insert(point3);
+        database.insert(point4);
+        
+        systemOut().clearHistory();
+        database.remove(320, 64);
+        assertEquals(1, database.dump());
+        assertFuzzyEquals("Node at 0, 0, 1024:"
+            + "\n(point1, 500, 250)"
+            + "\n(point3, 120, 896)"
+            + "\n(point2, 750, 580)", systemOut().getHistory());
+        
+    }
 }

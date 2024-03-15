@@ -22,11 +22,6 @@ public class Point {
         return name;
     }
     
-    public boolean isValid(Point p) {
-        //TODO
-        return false;
-    }
-    
     public boolean equals(Object other) {
         if(this == other) {
             return true;
@@ -54,7 +49,7 @@ public class Point {
         return "(" + name + ", " + x + ", " + y + ")";
     }
 
-    public boolean isInvalid() {
+    public boolean isValid() {
         if(getX() < 0) {
             return false;
         }
