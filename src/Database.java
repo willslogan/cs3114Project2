@@ -68,7 +68,7 @@ public class Database {
             if (sameNamePoints == null) {
                 list.insert(pair);
                 quadtreeDB.insert(currentPoint);
-                System.out.println("Point inserted: (" + currentPoint.toString() + ")");
+                System.out.println("Point inserted: " + currentPoint);
             }
             else {
                 for (int i = 0; i < sameNamePoints.size(); i++) {
@@ -79,8 +79,7 @@ public class Database {
                 }
                 list.insert(pair);
                 quadtreeDB.insert(currentPoint);
-                System.out.println("Point inserted: (" + pair.getKey() + ", "
-                    + currentPoint.toString() + ")");
+                System.out.println("Point inserted: " + currentPoint);
             }
 
         }
@@ -153,10 +152,7 @@ public class Database {
 
 
     /**
-     * Displays all the rectangles inside the specified region. The rectangle
-     * must have some area inside the area that is created by the region,
-     * meaning, Rectangles that only touch a side or corner of the region
-     * specified will not be said to be in the region.
+     * Displays all the points inside the specified region. 
      * 
      * @param x
      *            x-Coordinate of the region
