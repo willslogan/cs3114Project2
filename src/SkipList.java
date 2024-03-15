@@ -232,8 +232,7 @@ public class SkipList<K extends Comparable<? super K>, V>
             temp = temp.forward[0];
             while (temp != null) {
                 depth = "Node with depth " + temp.level + ", ";
-                value = "value (" + temp.element().getKey() + ", " + temp
-                    .element().getValue() + ")";
+                value = "value (" + temp.element().getValue() + ")";
                 System.out.println(depth + value);
                 temp = temp.forward[0];
             }

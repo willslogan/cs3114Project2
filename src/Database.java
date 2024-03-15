@@ -58,7 +58,7 @@ public class Database {
         if (!Character.isLetter(firstChar)) {
             System.out.println("Point rejected: " + currentPoint);
         }
-        else if (currentPoint.isInvalid()) {
+        else if (!currentPoint.isValid()) {
             System.out.println("Point rejected: " + currentPoint);
         }
 
@@ -68,8 +68,7 @@ public class Database {
             if (sameNamePoints == null) {
                 list.insert(pair);
                 quadtreeDB.insert(currentPoint);
-                System.out.println("Point inserted: (" + pair.getKey() + ", "
-                    + currentPoint.toString() + ")");
+                System.out.println("Point inserted: (" + currentPoint.toString() + ")");
             }
             else {
                 for (int i = 0; i < sameNamePoints.size(); i++) {
@@ -217,10 +216,10 @@ public class Database {
      * will all be delegated to the SkipList.
      */
     public void dump() {
-        System.out.println("SkipList Dump:");
         list.dump();
         System.out.println("QuadTree Dump:");
-        quadtreeDB.dump();
+        int numNodes = quadtreeDB.dump();
+        System.out.println(numNodes + " quadtree node(s) printed.");
     }
     
     public void duplicates() {

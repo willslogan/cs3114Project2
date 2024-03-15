@@ -92,24 +92,37 @@ public class InternalNode implements QuadNode {
     }
 
     @Override
-    public int dump(Rectangle region, int indents, int count) {
+    public int dump(Rectangle region, int indents) {
         // TODO Auto-generated method stub
-        System.out.println("Node At: " + region + ": Internal");
+        String indentsString = "";
+        for(int i = 0; i < indents; i++) {
+            indentsString += "\t";
+        }
+        
+        System.out.println(indentsString + "Node At: " + region + ": Internal");
         Rectangle updateRegion;
         int regionXMidpoint = (region.getxCoordinate() + region.getSize() / 2);
         int regionYMidpoint = (region.getyCoordinate() + region.getSize() / 2);
         
+        int nodesCountNW = 0;
+        int nodesCountNE = 0;
+        int nodesCountSW = 0;
+        int nodesCountSE = 0;
+        
         updateRegion = new Rectangle(region.getxCoordinate(), region.getyCoordinate(), region.getSize() / 2);
-        getNW().dump(updateRegion, );
+        nodesCountNW = getNW().dump(updateRegion, indents + 1);
         
         updateRegion = new Rectangle(regionXMidpoint, region.getyCoordinate(), region.getSize() / 2);
-        getNE().dump(updateRegion);
+        nodesCountNE = getNE().dump(updateRegion, indents + 1);
         
         updateRegion = new Rectangle(region.getxCoordinate(), regionYMidpoint, region.getSize() / 2);
-        getSW().dump(updateRegion);
+        nodesCountSW = getSW().dump(updateRegion, indents + 1);
+        
         
         updateRegion = new Rectangle(regionXMidpoint, regionYMidpoint, region.getSize() / 2);
-        getSE().dump(updateRegion);
+        nodesCountSE = getSE().dump(updateRegion, indents + 1);
+        
+        return nodesCountNW + nodesCountNE + nodesCountSW + nodesCountSE + 1;
     }
 
     @Override
