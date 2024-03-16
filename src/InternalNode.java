@@ -99,13 +99,11 @@ public class InternalNode implements QuadNode {
             if(y < regionYMidpoint) {
                 updateRegion = new Rectangle(region.getxCoordinate(), region.getyCoordinate(), region.getSize()/2);
                 removed = NW.remove(x, y, updateRegion);
-                merge();
             }
             //Bottom left
             else {
                 updateRegion = new Rectangle(region.getxCoordinate(), regionYMidpoint, region.getSize() / 2);
                 removed = SW.remove(x, y, updateRegion);
-                merge();
             }
         }
         //Right Side
@@ -114,13 +112,11 @@ public class InternalNode implements QuadNode {
             if(y < regionYMidpoint) {
                 updateRegion = new Rectangle(regionXMidpoint, region.getyCoordinate(), region.getSize() / 2);
                 removed = NE.remove(x, y, updateRegion);
-                merge();
             }
             //Bottom Right
             else {
                 updateRegion = new Rectangle(regionXMidpoint, regionYMidpoint, region.getSize() / 2);
                 removed = SE.remove(x, y, updateRegion);
-                merge();
             }
         }
         
@@ -256,10 +252,24 @@ public class InternalNode implements QuadNode {
     @Override
     public ArrayList<Point> pointsContained() {
         ArrayList<Point> combinedPoints = new ArrayList<Point>();
-        combinedPoints.addAll(NW.pointsContained());
-        combinedPoints.addAll(NE.pointsContained());
-        combinedPoints.addAll(SW.pointsContained());
-        combinedPoints.addAll(SE.pointsContained());
+        ArrayList<Point> nwPoints = NW.pointsContained();
+        ArrayList<Point> nePoints = NE.pointsContained();
+        ArrayList<Point> swPoints = SW.pointsContained();
+        ArrayList<Point> sePoints = SE.pointsContained();
+        
+        if(nwPoints != null) {
+            combinedPoints.addAll(nwPoints);
+        }
+        if(nePoints != null) {
+            combinedPoints.addAll(nePoints);
+        }
+        if(swPoints != null) {
+            combinedPoints.addAll(swPoints);
+        }
+        if(sePoints != null) {
+            combinedPoints.addAll(sePoints);
+        }
+        
         return combinedPoints;
     }
 }

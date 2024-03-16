@@ -374,7 +374,7 @@ public class QuadTreeTest extends TestCase {
         database.insert(point4);
         
         systemOut().clearHistory();
-        database.remove(320, 64);
+        Point p = database.remove(320, 64);
         assertEquals(1, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024:"
             + "\n(point1, 500, 250)"
