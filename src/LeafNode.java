@@ -24,12 +24,6 @@ public class LeafNode implements QuadNode {
             count++;
         }
         
-        //----------------------
-        for(int i = 0; i < unique.length; i++) {
-            System.out.print(unique[i] + " ");
-        }
-        System.out.println();
-        System.out.println(count);
         return count;
     }
     private boolean contains(Point point) {
