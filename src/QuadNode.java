@@ -6,7 +6,8 @@ public interface QuadNode {
 
 
     public Point remove(int x, int y, Rectangle region);
-
+    
+    public Point removeCheckKey(int x, int y, Rectangle region, String name);
 
     public int dump(Rectangle region, int indents);
 
@@ -14,11 +15,11 @@ public interface QuadNode {
     public void duplicates();
 
 
-    public void regionsearch(int x, int y, int w, int h);
+    public int regionsearch(int x, int y, int w, int h);
     
     public void search(String name);
     
-    public int numUniquePoints();
+    public ArrayList<Point> numUniquePoints();
     
     public ArrayList<Point> pointsContained();
     

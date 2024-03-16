@@ -283,4 +283,49 @@ public class SkipListTest extends TestCase {
             + "\nNode with depth 5, Value (p5, 10, 10)"
             + "\nSkipList size is: 2", systemOut().getHistory());
     }
+    
+    /**
+     * Test removeByValue
+     */
+    public void testRemoveByValueKeyCheck() {
+        assertNull(SList.removeByValueKeyCheck(listPoints[0].getKey(),listPoints[0].getValue()));
+        
+        SList.insert(listPoints[0]);
+        SList.insert(listPoints[1]);
+        SList.insert(listPoints[5]);
+        SList.insert(listPoints[2]);
+        SList.dump();
+        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
+            + "\nNode with depth 4, Value (p0, 0, 0)"
+            + "\nNode with depth 0, Value (p1, 1, 1)"
+            + "\nNode with depth 1, Value (p2, 1, 5)"
+            + "\nNode with depth 5, Value (p5, 10, 10)"
+            + "\nSkipList size is: 4", systemOut().getHistory());
+        
+        systemOut().clearHistory();
+        SList.removeByValueKeyCheck(listPoints[0].getKey() ,listPoints[0].getValue());
+        SList.dump();
+        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
+            + "\nNode with depth 0, Value (p1, 1, 1)"
+            + "\nNode with depth 1, Value (p2, 1, 5)"
+            + "\nNode with depth 5, Value (p5, 10, 10)"
+            + "\nSkipList size is: 3", systemOut().getHistory());
+
+        systemOut().clearHistory();
+        SList.removeByValueKeyCheck(listPoints[2].getKey(), listPoints[2].getValue());
+        SList.dump();
+        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
+            + "\nNode with depth 0, Value (p1, 1, 1)"
+            + "\nNode with depth 5, Value (p5, 10, 10)"
+            + "\nSkipList size is: 2", systemOut().getHistory());
+
+        systemOut().clearHistory();
+        Point tempPoi = new Point(20, 20, "p20");
+        assertNull(SList.removeByValueKeyCheck(tempPoi.getName(),tempPoi));
+        SList.dump();
+        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
+            + "\nNode with depth 0, Value (p1, 1, 1)"
+            + "\nNode with depth 5, Value (p5, 10, 10)"
+            + "\nSkipList size is: 2", systemOut().getHistory());
+    }
 }

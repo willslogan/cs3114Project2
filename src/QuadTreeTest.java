@@ -56,40 +56,52 @@ public class QuadTreeTest extends TestCase {
             + "\nNode at 512, 512, 512:"
             + "\n(point2, 750, 580)", systemOut().getHistory());
         
-        //Test 3 several copies of same node
+        //Test 3 several copies of same node and splits
         database.insert(point1);
         database.insert(point1);
         database.insert(point1);
         database.insert(point1);
         systemOut().clearHistory();
-        assertEquals(5, database.dump());
+        assertEquals(13, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024: Internal"
-            + "\nNode at 0, 0, 512:"
-            + "\n(point1, 500, 250)"
-            + "\n(point4, 320, 64)"
-            + "\n(point1, 500, 250)"
-            + "\n(point1, 500, 250)"
-            + "\n(point1, 500, 250)"
-            + "\n(point1, 500, 250)"
+            + "\nNode at 0, 0, 512: Internal"
+            + "\nNode at 0 0 256 empty"
+            + "\nNode at 256 0 256 internal"
+            + "\nNode at 256 0 128"
+            + "\npoint4 320 64"
+            + "\nNode at 384 0 128 empty"
+            + "\nNode at 256 128 128 empty"
+            + "\nNode at 384 128 128"
+            + "\npoint1 500 250"
+            + "\npoint1 500 250"
+            + "\npoint1 500 250"
+            + "\npoint1 500 250"
+            + "\npoint1 500 250"
+            + "\nNode at 0 256 256 empty"
+            + "\nNode at 256 256 256 empty"
             + "\nNode at 512, 0, 512: Empty"
             + "\nNode at 0, 512, 512:"
             + "\n(point3, 120, 896)"
             + "\nNode at 512, 512, 512:"
             + "\n(point2, 750, 580)", systemOut().getHistory());
         
-        //Test 4 another split second layer
+        //Test 4 
         database.insert(point5);
         database.insert(point6);
         systemOut().clearHistory();
-        assertEquals(9, database.dump());
+        assertEquals(13, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024: Internal"
             + "\nNode at 0, 0, 512: Internal"
             + "\nNode at 0, 0, 256:"
             + "\n(point5, 0, 0)"
             + "\n(point6, 1, 1)"
-            + "\nNode at 256, 0, 256:"
+            + "\nNode at 256, 0, 256: Internal"
+            + "\nNode at 256 0 128"
+            + "\npoint4 320 64"
+            + "\nNode at 384 0 128 empty"
+            + "\nNode at 256 128 128 empty"
+            + "\nNode at 384 128 128"
             + "\n(point1, 500, 250)"
-            + "\n(point4, 320, 64)"
             + "\n(point1, 500, 250)"
             + "\n(point1, 500, 250)"
             + "\n(point1, 500, 250)"
@@ -114,9 +126,13 @@ public class QuadTreeTest extends TestCase {
             + "\nNode at 0, 0, 256:"
             + "\n(point5, 0, 0)"
             + "\n(point6, 1, 1)"
-            + "\nNode at 256, 0, 256:"
+            + "\nNode at 256, 0, 256: Internal"
+            + "\nNode at 256 0 128"
+            + "\npoint4 320 64"
+            + "\nNode at 384 0 128 empty"
+            + "\nNode at 256 128 128 empty"
+            + "\nNode at 384 128 128"
             + "\n(point1, 500, 250)"
-            + "\n(point4, 320, 64)"
             + "\n(point1, 500, 250)"
             + "\n(point1, 500, 250)"
             + "\n(point1, 500, 250)"
@@ -124,14 +140,14 @@ public class QuadTreeTest extends TestCase {
             + "\nNode at 0, 256, 256: Empty"
             + "\nNode at 256, 256, 256: Empty"
             + "\nNode at 512, 0, 512: Internal"
-            + "\nNode at 512, 0, 256:"
-            + "\n(point9, 600, 120)"
-            + "\nNode at 768, 0, 256:"
-            + "\n(point7, 780, 120)"
-            + "\n(point8, 800, 200)"
-            + "\nNode at 512, 256, 256:"
-            + "\n(point10, 600, 300)"
-            + "\nNode at 768, 256, 256: Empty"
+            +"\nNode at 512 0 256"
+            +"\npoint9 600 120"
+            +"\nNode at 768 0 256"
+            +"\npoint7 780 120"
+            +"\npoint8 800 200"
+            +"\nNode at 512 256 256"
+            +"\npoint10 600 300"
+            +"\nNode at 768 256 256 empty"
             + "\nNode at 0, 512, 512:"
             + "\n(point3, 120, 896)"
             + "\nNode at 512, 512, 512:"
@@ -339,16 +355,16 @@ public class QuadTreeTest extends TestCase {
         database.duplicates();
         assertFuzzyEquals("(500, 250)", systemOut().getHistory());
         
-        //Test 4 full leafnode multiple duplicates
+        //Test 4 
         database.insert(point2);
         database.insert(point3);
         database.insert(point2);
         database.insert(point3);
         systemOut().clearHistory();
         database.duplicates();
-        assertFuzzyEquals("(500, 250)\n(750, 580)\n(120, 896)", systemOut().getHistory());
+        assertFuzzyEquals("(500, 250)\n(120, 896)\n(750, 580)", systemOut().getHistory());
         
-        //Test 4 internal nodes now
+        //Test 5 
         database.insert(point4);
         systemOut().clearHistory();
         database.duplicates();

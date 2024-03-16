@@ -85,7 +85,7 @@ public class Point {
         // Cast other to a point object
         Point otherPoint = (Point)other;
         // If the x and y coordinate, of both points, are equal return true
-        if (this.getX() == otherPoint.getX() && this.getX() == otherPoint
+        if (this.getX() == otherPoint.getX() && this.getY() == otherPoint
             .getY()) {
             return true;
         }
@@ -111,20 +111,14 @@ public class Point {
      * @return true if the points has valid parameters, false if not 
      */
     public boolean isValid() {
-        if(getX() < 0) {
+        if(getX() < 0 || getX() > 1023) {
             return false;
         }
-        if (getY() < 0) {
-            return false;
-        }
-
-        if (getY() > 1024) {
+        if (getY() < 0 || getY() > 1023) {
             return false;
         }
 
-        if (getX() > 1024) {
-            return false;
-        }
+
         return true;
     }
 }

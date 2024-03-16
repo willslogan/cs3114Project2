@@ -22,10 +22,10 @@ public class EmptyNode implements QuadNode{
 
     @Override
     public Point remove(int x, int y, Rectangle region) {
-        // TODO Auto-generated method stub
         return null;
     }
 
+    
     @Override
     public int dump(Rectangle region, int indents) {
         // TODO Auto-generated method stub
@@ -44,8 +44,8 @@ public class EmptyNode implements QuadNode{
     }
 
     @Override
-    public void regionsearch(int x, int y, int w, int h) {
-        return;
+    public int regionsearch(int x, int y, int w, int h) {
+        return 1;
         
     }
 
@@ -56,8 +56,8 @@ public class EmptyNode implements QuadNode{
     }
 
     @Override
-    public int numUniquePoints() {
-        return 0;
+    public ArrayList<Point> numUniquePoints() {
+        return null;
     }
 
     @Override
@@ -69,6 +69,14 @@ public class EmptyNode implements QuadNode{
     public QuadNode merge() {
         return this;
     }
+
+    @Override
+    public Point removeCheckKey(int x, int y, Rectangle region, String name) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    
 
    
 }

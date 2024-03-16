@@ -66,9 +66,9 @@ public class CommandProcessor {
             else {
                 // Call remove by coordinates
                 // Store the x coordinate of the point
-                int x = Integer.parseInt(arr[2]);
+                int x = Integer.parseInt(arr[1]);
                 // Store the y coordinate of the point
-                int y = Integer.parseInt(arr[3]);
+                int y = Integer.parseInt(arr[2]);
                 data.remove(x, y);
             }
         }

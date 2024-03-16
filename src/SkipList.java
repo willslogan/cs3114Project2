@@ -217,7 +217,50 @@ public class SkipList<K extends Comparable<? super K>, V>
         // Return removedItem
         return removedItem;
     }
+    
+    @SuppressWarnings("unchecked")
+    public KVPair<K, V> removeByValueKeyCheck(K key, V val) {
+        SkipNode[] update = (SkipNode[])Array.newInstance(
+            SkipList.SkipNode.class, head.level + 1);
+        SkipNode current = head;
 
+        // Empty List will not have an item to be removed
+        if (size() == 0) {
+            return null;
+        }
+
+        for (int i = head.level; i >= 0; i--) {
+            while (current.forward[i] != null && !current.forward[i].element()
+                .getValue().equals(val) && !current.forward[i].element().getKey().equals(key)) {
+                current = current.forward[i];
+            }
+            update[i] = current;
+            current = head;
+
+        }
+
+        if (update[0].forward[0] == null) {
+            return null;
+        }
+
+        // item to be removed
+        current = update[0].forward[0];
+        KVPair<K, V> removedItem = current.element();
+
+        // Update Pointers
+        for (int i = 0; i < current.level + 1; i++) {
+            if (update[i] != null) {
+                update[i].forward[i] = current.forward[i];
+            }
+        }
+
+        // Update Size
+        --size;
+
+        // Return removedItem
+        return removedItem;
+    }
+    
 
     /**
      * Prints out the SkipList in a human readable format to the console.
@@ -232,7 +275,7 @@ public class SkipList<K extends Comparable<? super K>, V>
             temp = temp.forward[0];
             while (temp != null) {
                 depth = "Node with depth " + temp.level + ", ";
-                value = "value (" + temp.element().getValue() + ")";
+                value = "value " + temp.element().getValue();
                 System.out.println(depth + value);
                 temp = temp.forward[0];
             }

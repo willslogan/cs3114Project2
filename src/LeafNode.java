@@ -15,16 +15,17 @@ public class LeafNode implements QuadNode {
     }
 
     @Override
-    public int numUniquePoints() {
+    public ArrayList<Point> numUniquePoints() {
         int count = 0;
+        ArrayList<Point> uniquePoints = new ArrayList<Point>();
         for (int i = 0; i < unique.length; i++) {
             if (unique[i] == null) {
               break;  
             }
-            count++;
+            uniquePoints.add(unique[i]);
         }
         
-        return count;
+        return uniquePoints;
     }
     private boolean contains(Point point) {
         for(int i = 0; i < unique.length; i++) {
@@ -36,30 +37,44 @@ public class LeafNode implements QuadNode {
     }
 
     private void addPoint(Point point) {
-        for (int i = 0; i < unique.length; i++) {
-            if (unique[i] == null) {
-                points.add(point);
-                unique[i] = point;
-                break;
-            }
-
-            else if (unique[i].equals(point)) {
-                points.add(point);
-                break;
-            }
+        //Unique point 1 scenario
+        if(unique[0] == null) {
+            unique[0] = point;
+            points.add(point);
+        } 
+        else if(unique[0].equals(point)) {
+            points.add(point);
+        } 
+        
+        //Unique point 2 scenario
+        else if(unique[1] == null) {
+            unique[1] = point;
+            points.add(point);
+        } 
+        else if(unique[1].equals(point)) {
+            points.add(point);
+        } 
+        
+        //Unique point 3 scenario
+        else if(unique[2] == null) {
+            unique[2] = point;
+            points.add(point);
+        } 
+        else if(unique[2].equals(point)) {
+            points.add(point);
         }
     }
 
 
     @Override
     public QuadNode insert(Point point, Rectangle region) {
-        if (numUniquePoints() < 3 || contains(point)) {
-            // Don't split
+        if(points.size() < 3) {
             addPoint(point);
             return this;
         }
-        else {
-            // Split
+        
+        else if(unique[1] != null) {
+            //Split
             InternalNode splitNode = new InternalNode(region);
 
             for (int i = 0; i < points.size(); i++) {
@@ -69,13 +84,28 @@ public class LeafNode implements QuadNode {
             splitNode.insert(point, splitNode.getRegion());
             return splitNode;
         }
+        else if(!unique[0].equals(point)) {
+            //Split
+            InternalNode splitNode = new InternalNode(region);
+
+            for (int i = 0; i < points.size(); i++) {
+                // Insert Previous nodes
+                splitNode.insert(points.get(i), splitNode.getRegion());
+            }
+            splitNode.insert(point, splitNode.getRegion());
+            return splitNode;
+        }
+        else {
+            //Case where we are adding dups
+            addPoint(point);
+            return this;
+        }
 
     }
 
 
     @Override
     public Point remove(int x, int y, Rectangle region) {
-        // TODO Auto-generated method stub
         Point removed = null;
         for(int i = 0; i<points.size(); i++) {
             
@@ -110,36 +140,57 @@ public class LeafNode implements QuadNode {
 
     @Override
     public void duplicates() {
-        // TODO Auto-generated method stub
-        int dupCount;
-        for (int i = 0; i < unique.length; i++) {
-            if (unique[i] == null) {
-                break;
-            }
-            dupCount = 0;
-            for (int j = 0; j < points.size(); j++) {
-                if (unique[i].equals(points.get(j))) {
-                    dupCount++;
-                    if (dupCount > 1) {
-                        System.out.println("(" + unique[i].getX() + ", "
-                            + unique[i].getY() + ")");
-                        break;
-                    }
+        int dupCount1 = 0;
+        int dupCount2 = 0;
+        int dupCount3 = 0;
+        
+        for (int i = 0; i < points.size(); i++) {
+            if(unique[0] != null) {
+                if(unique[0].equals(points.get(i))) {
+                    dupCount1++;
                 }
             }
-
+            
+            if(unique[1] != null) {
+                if(unique[1].equals(points.get(i))) {
+                    dupCount2++;
+                }
+            }
+            
+            if(unique[2] != null) {
+                if(unique[2].equals(points.get(i))) {
+                    dupCount3++;
+                }
+            }
         }
+        
+        if(dupCount1 > 1) {
+            System.out.println("(" + unique[0].getX() + ", "
+                + unique[0].getY() + ")");
+        }
+        
+        if(dupCount2 > 1) {
+            System.out.println("(" + unique[1].getX() + ", "
+                + unique[1].getY() + ")"); 
+        }
+        
+        if(dupCount3 > 1) {
+            System.out.println("(" + unique[2].getX() + ", "
+                + unique[2].getY() + ")");
+        }
+        
 
     }
 
 
     @Override
-    public void regionsearch(int x, int y, int w, int h) {
+    public int regionsearch(int x, int y, int w, int h) {
         for (int i = 0; i < points.size(); i++) {
             if (withinRegion(points.get(i), x, y, w, h)) {
                 System.out.println("Point Found: " + points.get(i));
             }
         }
+        return 1;
 
     }
 
@@ -201,6 +252,23 @@ public class LeafNode implements QuadNode {
             return EmptyNode.getInstance();
         }
         return this;
+    }
+
+
+    @Override
+    public Point removeCheckKey(int x, int y, Rectangle region, String name) {
+     // TODO Auto-generated method stub
+        Point removed = null;
+        for(int i = 0; i<points.size(); i++) {
+            
+            if(points.get(i).getX() == x && points.get(i).getY() == y && points.get(i).getName().equals(name)) {
+                removed = points.remove(i);
+                updateUnique();
+                break;
+            }
+        }
+        
+        return removed;
     }
 
 

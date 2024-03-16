@@ -95,19 +95,20 @@ public class Database {
      *            the name of the rectangle to be removed
      */
     public void remove(String name) {
-//        // Making temp variable to make life easier
-//        KVPair<String, Rectangle> tempKV = list.remove(name);
+        // Making temp variable to make life easier
+        KVPair<String, Point> tempKV = list.remove(name);
+
+        // Point was found and successfully removed from the list
+        if (tempKV != null) {
+            quadtreeDB.removeCheckKey(tempKV.getValue().getX(), tempKV.getValue().getY(), name);
+            System.out.println("Point removed: (" + name + ", " + tempKV
+                .getValue().toString() + ")");
+        }
 //
-//        // Rectangle was found and successfully removed from the list
-//        if (tempKV != null) {
-//            System.out.println("Rectangle removed: (" + name + ", " + tempKV
-//                .getValue().toString() + ")");
-//        }
-//
-//        // Rectangle with specified rectangle doesn't exist within the list
-//        else {
-//            System.out.println("Rectangle not removed: (" + name + ")");
-//        }
+        // Point with specified rectangle doesn't exist within the list
+        else {
+            System.out.println("Point not removed: (" + name + ")");
+        }
 
     }
 
@@ -128,15 +129,17 @@ public class Database {
     public void remove(int x, int y) {
         Point temp = new Point(x, y, "temp");
         // Case where dimensions given are invalid
-        if (temp.isValid()) {
+        if (temp.getX() < 0 || temp.getY() < 0) {
             System.out.println("Point rejected: (" + x + ", " + y + ")");
             return;
         }
         // Making temp variables to make life easier
         Point removed = quadtreeDB.remove(x,y);
+        
 
         // Case where point is found
         if (removed != null) {
+            list.removeByValueKeyCheck(removed.getName(), removed);
             System.out.println("Point removed: " + removed);
         }
 
@@ -171,7 +174,7 @@ public class Database {
             // Output expecterd header
             System.out.println("Points intersecting region (" + x + ", " + y
                 + ", " + w + ", " + h + "):");
-            quadtreeDB.regionsearch(x, y, w, h);
+            System.out.println(quadtreeDB.regionsearch(x, y, w, h) + " quadtree nodes visited");
             
         }
     }
@@ -192,12 +195,13 @@ public class Database {
         }
         // One or more rectangle was found with name
         else {
-            System.out.println("Points Found:");
+            String print = "Found ";
             for (int i = 0; i < results.size(); i++) {
                 // temp variable so it less writing
                 Point currentPoint = results.get(i).getValue();
-                System.out.println(currentPoint);
+                print += currentPoint + " ";
             }
+            System.out.println(print);
         }
     }
 
@@ -211,10 +215,12 @@ public class Database {
         list.dump();
         System.out.println("QuadTree Dump:");
         int numNodes = quadtreeDB.dump();
-        System.out.println(numNodes + " quadtree node(s) printed.");
+        System.out.println(numNodes + " quadtree nodes printed");
     }
     
     public void duplicates() {
+        System.out.println("Duplicate points:");
+        quadtreeDB.duplicates();
         
     }
 

@@ -54,13 +54,13 @@ public class CommandProcessorTest extends TestCase {
         systemOut().clearHistory(); */
 
         cmdProc.processor(rsearch);
-        assertFuzzyEquals("Points intersecting region (1, 1, 100, 100)\n" + "Point found (a2, 5, 10)\n",
+        assertFuzzyEquals("Points intersecting region (1, 1, 100, 100)\n" + "Point found (a2, 5, 10)\n + 1 quadtree nodes visited",
             systemOut().getHistory());
         systemOut().clearHistory();
 
 
         cmdProc.processor(search);
-        assertFuzzyEquals("Points Found: \n" + "(a2, 5, 10)\n",
+        assertFuzzyEquals("Found: " + "(a2, 5, 10)\n",
             systemOut().getHistory());
         systemOut().clearHistory();
 
