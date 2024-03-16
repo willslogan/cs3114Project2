@@ -13,6 +13,7 @@ public class QuadTree {
     
     public Point remove(int x, int y) {
         Point removed = root.remove(x, y, defaultRegion);
+        this.root = root.merge();
         return removed;
     }
     
