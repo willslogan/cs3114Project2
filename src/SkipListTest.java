@@ -143,13 +143,20 @@ public class SkipListTest extends TestCase {
         
         // test4 test when point is first item
         expected.clear();
-        actual = SList .search("p0");
+        actual = SList.search("p0");
         expected.add(listPoints[0]);
         assertEquals(expected, actual);
         
         // test5 item isn't in list 
         actual = SList.search("x5");
         assertNull(actual);
+        
+        // Test when point is in the middle of the list
+        SList.insert(listPoints[3]);
+        expected.clear();
+        expected.add(listPoints[2]);
+        actual = SList.search("p2");
+        assertEquals(expected, actual);
     }
 
 
