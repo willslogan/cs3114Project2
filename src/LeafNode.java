@@ -60,20 +60,13 @@ public class LeafNode implements QuadNode {
             unique[2] = point;
             points.add(point);
         } 
-        else if(unique[2].equals(point)) {
-            points.add(point);
-        }
     }
 
 
     @Override
     public QuadNode insert(Point point, Rectangle region) {
-        if(points.size() < 3) {
-            addPoint(point);
-            return this;
-        }
-        
-        else if(unique[1] != null) {
+        boolean shouldSplit = shouldSplit(point);
+        if(shouldSplit) {
             //Split
             InternalNode splitNode = new InternalNode(region);
 
@@ -83,20 +76,8 @@ public class LeafNode implements QuadNode {
             }
             splitNode.insert(point, splitNode.getRegion());
             return splitNode;
-        }
-        else if(!unique[0].equals(point)) {
-            //Split
-            InternalNode splitNode = new InternalNode(region);
-
-            for (int i = 0; i < points.size(); i++) {
-                // Insert Previous nodes
-                splitNode.insert(points.get(i), splitNode.getRegion());
-            }
-            splitNode.insert(point, splitNode.getRegion());
-            return splitNode;
-        }
-        else {
-            //Case where we are adding dups
+        } else {
+            //Add
             addPoint(point);
             return this;
         }
@@ -130,7 +111,7 @@ public class LeafNode implements QuadNode {
             indentsString += "\t";
         }
 
-        System.out.println(indentsString + "Node at " + region + ": ");
+        System.out.println(indentsString + "Node at " + region + ":");
         for (int i = 0; i < points.size(); i++) {
             System.out.println(indentsString + "\t" + points.get(i));
         }
@@ -187,7 +168,7 @@ public class LeafNode implements QuadNode {
     public int regionsearch(int x, int y, int w, int h) {
         for (int i = 0; i < points.size(); i++) {
             if (withinRegion(points.get(i), x, y, w, h)) {
-                System.out.println("Point Found: " + points.get(i));
+                System.out.println("Point found: " + points.get(i));
             }
         }
         return 1;
@@ -270,6 +251,42 @@ public class LeafNode implements QuadNode {
         
         return removed;
     }
-
+    
+    
+    private boolean shouldSplit(Point p) {
+        int countUnique = countUnique();
+        if(countUnique == 0 ) {
+            return false;
+        }
+        if(countUnique == 1 && p.equals(unique[0])) {
+            return false;
+        }
+        if (countUnique == 1 && points.size() < 3) {
+            return false;
+        }
+        
+        if (countUnique == 2 && points.size() == 2) {
+            return false;
+        }
+//        if (countUnique == 2 && points.size()== 3) {
+//            return true;
+//        }
+//        if (countUnique == 3) {
+//            return true;
+//        }
+        return true;
+    }
+    
+    private int countUnique() {
+        int count = 0;
+        for(int i = 0; i< unique.length; i++) {
+            if(unique[i] != null)
+                count++;
+            else {
+                break;
+            }
+        }
+        return count;
+    }
 
 }

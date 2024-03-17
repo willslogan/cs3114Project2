@@ -111,10 +111,10 @@ public class Point {
      * @return true if the points has valid parameters, false if not 
      */
     public boolean isValid() {
-        if(getX() < 0 || getX() > 1023) {
+        if(getX() < 0 || getX() > 1024) {
             return false;
         }
-        if (getY() < 0 || getY() > 1023) {
+        if (getY() < 0 || getY() > 1024) {
             return false;
         }
 

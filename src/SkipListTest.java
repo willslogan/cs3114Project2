@@ -69,44 +69,44 @@ public class SkipListTest extends TestCase {
         // 4, 0, 5, 1
         SList.dump();
         assertFuzzyEquals(systemOut().getHistory(),
-            "SkipList dump: \nNode with depth 1, value null \nSkipList size is: 0");
+            "SkipList dump: \nNode has depth 1, value null \nSkipList size is: 0");
 
         systemOut().clearHistory();
         SList.insert(listPoints[0]);
         SList.dump();
         assertFuzzyEquals(systemOut().getHistory(),
-            "SkipList dump: \nNode with depth 4, Value null"
-                + "\nNode with depth 4, Value (p0, 0, 0)"
+            "SkipList dump: \nNode has depth 4, Value null"
+                + "\nNode has depth 4, Value (p0, 0, 0)"
                 + "\nSkipList size is: 1");
 
         systemOut().clearHistory();
         SList.insert(listPoints[1]);
         SList.dump();
         assertFuzzyEquals(systemOut().getHistory(),
-            "SkipList dump: \nNode with depth 4, Value null"
-                + "\nNode with depth 4, Value (p0, 0, 0)"
-                + "\nNode with depth 0, Value (p1, 1, 1)"
+            "SkipList dump: \nNode has depth 4, Value null"
+                + "\nNode has depth 4, Value (p0, 0, 0)"
+                + "\nNode has depth 0, Value (p1, 1, 1)"
                 + "\nSkipList size is: 2");
 
         systemOut().clearHistory();
         SList.insert(listPoints[5]);
         SList.dump();
         assertFuzzyEquals(systemOut().getHistory(),
-            "SkipList dump: \nNode with depth 5, Value null"
-                + "\nNode with depth 4, Value (p0, 0, 0)"
-                + "\nNode with depth 0, Value (p1, 1, 1)"
-                + "\nNode with depth 5, Value (p5, 10, 10)"
+            "SkipList dump: \nNode has depth 5, Value null"
+                + "\nNode has depth 4, Value (p0, 0, 0)"
+                + "\nNode has depth 0, Value (p1, 1, 1)"
+                + "\nNode has depth 5, Value (p5, 10, 10)"
                 + "\nSkipList size is: 3");
 
         systemOut().clearHistory();
         SList.insert(listPoints[2]);
         SList.dump();
         assertFuzzyEquals(systemOut().getHistory(),
-            "SkipList dump: \nNode with depth 5, Value null"
-                + "\nNode with depth 4, Value (p0, 0, 0)"
-                + "\nNode with depth 0, Value (p1, 1, 1)"
-                + "\nNode with depth 1, Value (p2, 1, 5)"
-                + "\nNode with depth 5, Value (p5, 10, 10)"
+            "SkipList dump: \nNode has depth 5, Value null"
+                + "\nNode has depth 4, Value (p0, 0, 0)"
+                + "\nNode has depth 0, Value (p1, 1, 1)"
+                + "\nNode has depth 1, Value (p2, 1, 5)"
+                + "\nNode has depth 5, Value (p5, 10, 10)"
                 + "\nSkipList size is: 4");
     }
 
@@ -164,7 +164,7 @@ public class SkipListTest extends TestCase {
         systemOut().clearHistory();
         assertNull(SList.remove("p1"));
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 1, value null"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 1, value null"
             + "\nSkipList size is: 0", systemOut().getHistory());
 
         // Test 2 one item in list
@@ -172,7 +172,7 @@ public class SkipListTest extends TestCase {
         SList.insert(listPoints[1]); // Size 1 level 4
         assertEquals(listPoints[1], SList.remove("p1"));
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 4, Value null"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 4, Value null"
             + "\nSkipList size is: 0", systemOut().getHistory());
         assertEquals(0, SList.size());
 
@@ -182,8 +182,8 @@ public class SkipListTest extends TestCase {
         assertNull(SList.remove("r1"));
 
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 4, Value null"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 4, Value null"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
             + "\nSkipList size is: 1", systemOut().getHistory());
 
         assertEquals(1, SList.size());
@@ -194,20 +194,20 @@ public class SkipListTest extends TestCase {
         SList.insert(listPoints[2]); // size 3 level 1
         SList.insert(listPoints[3]); // size 4 level 4
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 5, Value (p0, 0, 0)"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 1, Value (p2, 1, 5)"
-            + "\nNode with depth 4, Value (p3, 20, 20)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 5, Value (p0, 0, 0)"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 1, Value (p2, 1, 5)"
+            + "\nNode has depth 4, Value (p3, 20, 20)"
             + "\nSkipList size is: 4", systemOut().getHistory());
         assertEquals(listPoints[3], SList.remove("p3"));
         
         systemOut().clearHistory();
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 5, Value (p0, 0, 0)"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 1, Value (p2, 1, 5)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 5, Value (p0, 0, 0)"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 1, Value (p2, 1, 5)"
             + "\nSkipList size is: 3", systemOut().getHistory());
         assertEquals(3, SList.size());
 
@@ -216,10 +216,10 @@ public class SkipListTest extends TestCase {
         SList.insert(listPoints[3]); // size 4 level 0
         assertEquals(listPoints[0], SList.remove("p0"));
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 1, Value (p2, 1, 5)"
-            + "\nNode with depth 0, Value (p3, 20, 20)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 1, Value (p2, 1, 5)"
+            + "\nNode has depth 0, Value (p3, 20, 20)"
             + "\nSkipList size is: 3", systemOut().getHistory());
 
         assertEquals(3, SList.size());
@@ -230,11 +230,11 @@ public class SkipListTest extends TestCase {
         SList.insert(listPoints[2]); // size 5 level 4
         assertEquals(listPoints[2], SList.remove("p2"));
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 1, Value (p2, 1, 5)"
-            + "\nNode with depth 1, Value (p2, 1, 5)"
-            + "\nNode with depth 0, Value (p3, 20, 20)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 1, Value (p2, 1, 5)"
+            + "\nNode has depth 1, Value (p2, 1, 5)"
+            + "\nNode has depth 0, Value (p3, 20, 20)"
             + "\nSkipList size is: 4", systemOut().getHistory());
     }
 
@@ -250,37 +250,37 @@ public class SkipListTest extends TestCase {
         SList.insert(listPoints[5]);
         SList.insert(listPoints[2]);
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 4, Value (p0, 0, 0)"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 1, Value (p2, 1, 5)"
-            + "\nNode with depth 5, Value (p5, 10, 10)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 4, Value (p0, 0, 0)"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 1, Value (p2, 1, 5)"
+            + "\nNode has depth 5, Value (p5, 10, 10)"
             + "\nSkipList size is: 4", systemOut().getHistory());
         
         systemOut().clearHistory();
         SList.removeByValue(listPoints[0].getValue());
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 1, Value (p2, 1, 5)"
-            + "\nNode with depth 5, Value (p5, 10, 10)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 1, Value (p2, 1, 5)"
+            + "\nNode has depth 5, Value (p5, 10, 10)"
             + "\nSkipList size is: 3", systemOut().getHistory());
 
         systemOut().clearHistory();
         SList.removeByValue(listPoints[2].getValue());
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 5, Value (p5, 10, 10)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 5, Value (p5, 10, 10)"
             + "\nSkipList size is: 2", systemOut().getHistory());
 
         systemOut().clearHistory();
         Point tempPoi = new Point(20, 20, "p20");
         assertNull(SList.removeByValue(tempPoi));
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 5, Value (p5, 10, 10)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 5, Value (p5, 10, 10)"
             + "\nSkipList size is: 2", systemOut().getHistory());
     }
     
@@ -295,37 +295,37 @@ public class SkipListTest extends TestCase {
         SList.insert(listPoints[5]);
         SList.insert(listPoints[2]);
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 4, Value (p0, 0, 0)"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 1, Value (p2, 1, 5)"
-            + "\nNode with depth 5, Value (p5, 10, 10)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 4, Value (p0, 0, 0)"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 1, Value (p2, 1, 5)"
+            + "\nNode has depth 5, Value (p5, 10, 10)"
             + "\nSkipList size is: 4", systemOut().getHistory());
         
         systemOut().clearHistory();
         SList.removeByValueKeyCheck(listPoints[0].getKey() ,listPoints[0].getValue());
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 1, Value (p2, 1, 5)"
-            + "\nNode with depth 5, Value (p5, 10, 10)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 1, Value (p2, 1, 5)"
+            + "\nNode has depth 5, Value (p5, 10, 10)"
             + "\nSkipList size is: 3", systemOut().getHistory());
 
         systemOut().clearHistory();
         SList.removeByValueKeyCheck(listPoints[2].getKey(), listPoints[2].getValue());
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 5, Value (p5, 10, 10)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 5, Value (p5, 10, 10)"
             + "\nSkipList size is: 2", systemOut().getHistory());
 
         systemOut().clearHistory();
         Point tempPoi = new Point(20, 20, "p20");
         assertNull(SList.removeByValueKeyCheck(tempPoi.getName(),tempPoi));
         SList.dump();
-        assertFuzzyEquals("SkipList dump:" + "\nNode with depth 5, Value null"
-            + "\nNode with depth 0, Value (p1, 1, 1)"
-            + "\nNode with depth 5, Value (p5, 10, 10)"
+        assertFuzzyEquals("SkipList dump:" + "\nNode has depth 5, Value null"
+            + "\nNode has depth 0, Value (p1, 1, 1)"
+            + "\nNode has depth 5, Value (p5, 10, 10)"
             + "\nSkipList size is: 2", systemOut().getHistory());
     }
 }

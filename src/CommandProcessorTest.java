@@ -65,8 +65,8 @@ public class CommandProcessorTest extends TestCase {
         systemOut().clearHistory();
 
         cmdProc.processor(dump);
-        assertFuzzyEquals("Skiplist Dump:\n" + "Node with depth: 4 Value null\n"
-            + "Node with depth: 4 Value (a2, 5, 10)\n"
+        assertFuzzyEquals("Skiplist Dump:\n" + "Node has depth: 4 Value null\n"
+            + "Node has depth: 4 Value (a2, 5, 10)\n"
             + "SkipList size is: 1\n"
             + "QuadTree Dump:\n"
             + "Node At: 0, 0, 1024\n"

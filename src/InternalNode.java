@@ -153,7 +153,7 @@ public class InternalNode implements QuadNode {
             indentsString += "\t";
         }
 
-        System.out.println(indentsString + "Node At: " + region + ": Internal");
+        System.out.println(indentsString + "Node at " + region + ": Internal");
         Rectangle updateRegion;
         int regionXMidpoint = (region.getxCoordinate() + region.getSize() / 2);
         int regionYMidpoint = (region.getyCoordinate() + region.getSize() / 2);
@@ -293,27 +293,19 @@ public class InternalNode implements QuadNode {
         setSW(SW.merge());
         setSE(SE.merge());
 
-        ArrayList<Point> unique = numUniquePoints();
         ArrayList<Point> allPoints = pointsContained();
 
-        if (allPoints.size() < 4) {
-            LeafNode merged = new LeafNode();
-            for (int i = 0; i < allPoints.size(); i++) {
-                merged.insert(allPoints.get(i), region);
-            }
-            return merged;
-        }
-        else if (unique.size() > 1) {
-            // dont merge
-            return this;
-        }
-        else {
+        if(shouldMerge()) {
             // merge
             LeafNode merged = new LeafNode();
             for (int i = 0; i < allPoints.size(); i++) {
                 merged.insert(allPoints.get(i), region);
             }
             return merged;
+        }
+        else {
+            // dont merge
+            return this;
         }
     }
 
@@ -382,6 +374,28 @@ public class InternalNode implements QuadNode {
         }
 
         return removed;
+    }
+    
+    private boolean shouldMerge() {
+        ArrayList<Point> unique = numUniquePoints();
+        ArrayList<Point> allPoints = pointsContained();
+        
+        
+        if(unique.size() == 1) {
+            return true;
+        }
+        
+        if(unique.size() == 2 && allPoints.size() < 4) {
+            return true;
+        }
+        
+        if(unique.size() == 3 && allPoints.size() == 3) {
+            return true;
+        }
+        
+        return false;
+        
+
     }
 
 }

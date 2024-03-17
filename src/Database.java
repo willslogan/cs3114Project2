@@ -101,13 +101,12 @@ public class Database {
         // Point was found and successfully removed from the list
         if (tempKV != null) {
             quadtreeDB.removeCheckKey(tempKV.getValue().getX(), tempKV.getValue().getY(), name);
-            System.out.println("Point removed: (" + name + ", " + tempKV
-                .getValue().toString() + ")");
+            System.out.println("Point removed: " + tempKV.getValue());
         }
 //
         // Point with specified rectangle doesn't exist within the list
         else {
-            System.out.println("Point not removed: (" + name + ")");
+            System.out.println("Point not removed: " + name );
         }
 
     }
@@ -191,17 +190,15 @@ public class Database {
         ArrayList<KVPair<String, Point>> results = list.search(name);
         // No rectangle was found with that name
         if (results == null) {
-            System.out.println("Point not found: (" + name + ")");
+            System.out.println("Point not found: " + name );
         }
         // One or more rectangle was found with name
         else {
-            String print = "Found ";
             for (int i = 0; i < results.size(); i++) {
                 // temp variable so it less writing
                 Point currentPoint = results.get(i).getValue();
-                print += currentPoint + " ";
+                System.out.println("Found " + currentPoint.toString());
             }
-            System.out.println(print);
         }
     }
 
@@ -213,7 +210,7 @@ public class Database {
      */
     public void dump() {
         list.dump();
-        System.out.println("QuadTree Dump:");
+        System.out.println("QuadTree dump:");
         int numNodes = quadtreeDB.dump();
         System.out.println(numNodes + " quadtree nodes printed");
     }

@@ -155,6 +155,9 @@ public class QuadTreeTest extends TestCase {
         
     }
     
+    public void testBigInsert() {
+        
+    }
     public void testSearch() {
         
         

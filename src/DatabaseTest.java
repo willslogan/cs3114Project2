@@ -98,7 +98,7 @@ public class DatabaseTest extends TestCase {
     public void testSearch() {
         // Test point that isn't in the database
         data.search("a5");
-        assertEquals(systemOut().getHistory(), "Point not found: (a5)\n");
+        assertEquals(systemOut().getHistory(), "Point not found: a5\n");
         systemOut().clearHistory();
 
         // Test points in the data base
@@ -106,8 +106,7 @@ public class DatabaseTest extends TestCase {
         data.insert(sName);
         systemOut().clearHistory();
         data.search("b5");
-        assertEquals(systemOut().getHistory(), "Found "
-            + "(b5, 10, 10) " + "(b5, 5, 5) \n");
+        assertEquals(systemOut().getHistory(), "Found (b5, 10, 10)\n" + "Found (b5, 5, 5)\n");
 
     }
 }
