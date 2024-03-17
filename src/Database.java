@@ -72,7 +72,8 @@ public class Database {
             }
             else {
                 for (int i = 0; i < sameNamePoints.size(); i++) {
-                    if (sameNamePoints.get(i).getValue().equals(pair.getValue())) {
+                    if (sameNamePoints.get(i).getValue().equals(pair
+                        .getValue())) {
                         System.out.println("Point rejected: " + currentPoint);
                         return;
                     }
@@ -103,7 +104,7 @@ public class Database {
             quadtreeDB.removeCheckKey(tempKV.getValue().getX(), tempKV.getValue().getY(), name);
             System.out.println("Point removed: " + tempKV.getValue());
         }
-//
+
         // Point with specified rectangle doesn't exist within the list
         else {
             System.out.println("Point not removed: " + name );
@@ -133,8 +134,7 @@ public class Database {
             return;
         }
         // Making temp variables to make life easier
-        Point removed = quadtreeDB.remove(x,y);
-        
+        Point removed = quadtreeDB.remove(x, y);
 
         // Case where point is found
         if (removed != null) {
@@ -150,7 +150,7 @@ public class Database {
 
 
     /**
-     * Displays all the points inside the specified region. 
+     * Displays all the points inside the specified region.
      * 
      * @param x
      *            x-Coordinate of the region
@@ -173,8 +173,9 @@ public class Database {
             // Output expecterd header
             System.out.println("Points intersecting region (" + x + ", " + y
                 + ", " + w + ", " + h + "):");
-            System.out.println(quadtreeDB.regionsearch(x, y, w, h) + " quadtree nodes visited");
-            
+            System.out.println(quadtreeDB.regionsearch(x, y, w, h)
+                + " quadtree nodes visited");
+
         }
     }
 
@@ -214,11 +215,12 @@ public class Database {
         int numNodes = quadtreeDB.dump();
         System.out.println(numNodes + " quadtree nodes printed");
     }
-    
+
+
     public void duplicates() {
         System.out.println("Duplicate points:");
         quadtreeDB.duplicates();
-        
+
     }
 
 }
