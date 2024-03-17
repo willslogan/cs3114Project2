@@ -3,6 +3,7 @@
  * file according to the format specified in the project
  * 
  * @author Jacob Fast
+ * @version 1.0
  */
 public class CommandProcessor {
     // the PointsDatabse object to manipulate the commands that the command
@@ -29,7 +30,7 @@ public class CommandProcessor {
      * methods called will themselves write to the console, this method does
      * not, only calling methods that do.
      * 
-     * @parame line
+     * @param line
      *         a single line form the text file
      */
     public void processor(String line) {

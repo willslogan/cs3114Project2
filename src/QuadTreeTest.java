@@ -19,6 +19,7 @@ public class QuadTreeTest extends TestCase {
     private Point point10;
     private Point point11;
     private QuadTree database;
+    private QuadTree tree;
 
     /**
      * Sets up variable to be used in testing
@@ -36,6 +37,7 @@ public class QuadTreeTest extends TestCase {
         point10 = new Point(600, 300, "point10");
         point11 = new Point(900, 900, "point11");
         database = new QuadTree();
+        tree = new QuadTree();
     }
 
 
@@ -226,6 +228,43 @@ public class QuadTreeTest extends TestCase {
 
         database.insert(point4);
 
+        systemOut().clearHistory();
+        // Point1 (500, 250) NE
+        // Point2 (750, 580) SE
+        // test LeafeNode
+        // No points in region
+        tree.insert(point1);
+        tree.insert(point2);
+        tree.regionsearch(900, 900, 100, 100);
+        assertFuzzyEquals("", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // X value of point is within search (nothing else)
+        tree.regionsearch(700, 600, 20, 20);
+        assertFuzzyEquals("", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // Y value of point is within search (nothing else)
+        tree.regionsearch(800, 500, 20, 20);
+        assertFuzzyEquals("", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // X value of point is within search box (nothing else
+        tree.regionsearch(700, 600, 100, 100);
+        assertFuzzyEquals("", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // Y value of point is within search (nothing else)
+        tree.regionsearch(800, 500, 100, 100);
+        assertFuzzyEquals("", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // Point is in region search
+        tree.regionsearch(700, 500, 100, 100);
+        assertFuzzyEquals("Point found: (point2, 750, 580)", systemOut()
+            .getHistory());
+        systemOut().clearHistory();
+
     }
 
 
@@ -273,7 +312,29 @@ public class QuadTreeTest extends TestCase {
         database.duplicates();
         assertFuzzyEquals("(500, 250)\n(120, 896)\n(750, 580)", systemOut()
             .getHistory());
+        systemOut().clearHistory();
 
+        // (500, 250, "point1");
+        // (750, 580, "point2");
+        // (120, 896, "point3");
+        // (320, 64, "point4");
+        // Leaf node cases
+        // No duplicates, full leaf
+        tree.insert(point1);
+        tree.insert(point2);
+        tree.insert(point3);
+        tree.duplicates();
+        assertFuzzyEquals("", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // dupCount2 > 2
+        tree.remove(120, 896);
+        tree.insert(point1);
+        tree.duplicates();
+        assertFuzzyEquals("(500, 250)\n", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        //
         database.insert(point1);
         database.insert(point1);
         database.insert(point1);
@@ -292,11 +353,16 @@ public class QuadTreeTest extends TestCase {
      * Tests remove by value of quadtree
      */
     public void testRemoveByValue() {
+        // Point1 (500, 250) NE
+        // Point2 (750, 580) SE
+        // Point3 (120, 896) SW
+        // Point4 (320, 64) NW
         database.insert(point1);
         database.insert(point2);
         database.insert(point3);
         database.insert(point4);
 
+        database.remove(320, 64);
         assertEquals(1, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point1, 500, 250)"
             + "\n(point3, 120, 896)" + "\n(point2, 750, 580)", systemOut()
@@ -304,13 +370,14 @@ public class QuadTreeTest extends TestCase {
         systemOut().clearHistory();
 
         database.insert(point11);
+        database.remove(750, 580);
         assertEquals(1, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point1, 500, 250)"
             + "\n(point3, 120, 896)" + "\n(point11, 900, 900)", systemOut()
                 .getHistory());
         systemOut().clearHistory();
-
         database.insert(point10);
+        database.remove(500, 250);
         assertEquals(1, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point10, 600, 300"
             + "\n(point3, 120, 896)" + "\n(point11, 900, 900)", systemOut()
@@ -318,6 +385,7 @@ public class QuadTreeTest extends TestCase {
         systemOut().clearHistory();
 
         database.insert(point6);
+        database.remove(120, 896);
         assertEquals(1, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
             + "\n(point10, 600, 300)" + "\n(point11, 900, 900)", systemOut()
@@ -325,11 +393,124 @@ public class QuadTreeTest extends TestCase {
         systemOut().clearHistory();
 
         database.insert(point1);
+        database.remove(600, 300);
         assertEquals(1, database.dump());
         assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
             + "\n(point1, 500, 250)" + "\n(point11, 900, 900)", systemOut()
                 .getHistory());
         systemOut().clearHistory();
+
+        // Leafnode
+        // remove a point that isn't there
+        Point temp5 = database.remove(1000, 1000);
+        assertNull(temp5);
+        assertEquals(1, database.dump());
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
+            + "\n(point1, 500, 250)" + "\n(point11, 900, 900)", systemOut()
+                .getHistory());
+        systemOut().clearHistory();
+
+        // X value matches
+        Point temp6 = database.remove(900, 1000);
+        assertNull(temp6);
+        assertEquals(1, database.dump());
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
+            + "\n(point1, 500, 250)" + "\n(point11, 900, 900)", systemOut()
+                .getHistory());
+        systemOut().clearHistory();
+    }
+
+    /**
+     * Remove by key tests
+     */
+    public void testRemoveChekcKey() {
+        // Point1 (500, 250) NE
+        // Point2 (750, 580) SE
+        // Point3 (120, 896) SW
+        // Point4 (320, 64) NW
+        database.insert(point1);
+        database.insert(point2);
+        database.insert(point3);
+        database.insert(point4);
+
+        database.removeCheckKey(320, 64, "point4");
+        assertEquals(1, database.dump());
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point1, 500, 250)"
+            + "\n(point3, 120, 896)" + "\n(point2, 750, 580)", systemOut()
+                .getHistory());
+        systemOut().clearHistory();
+
+        database.insert(point11);
+        database.removeCheckKey(750, 580, "point2");
+        assertEquals(1, database.dump());
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point1, 500, 250)"
+            + "\n(point3, 120, 896)" + "\n(point11, 900, 900)", systemOut()
+                .getHistory());
+        systemOut().clearHistory();
+
+        database.insert(point10);
+        database.removeCheckKey(500, 250, "point1");
+        assertEquals(1, database.dump());
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point10, 600, 300"
+            + "\n(point3, 120, 896)" + "\n(point11, 900, 900)", systemOut()
+                .getHistory());
+        systemOut().clearHistory();
+
+        database.insert(point6);
+        database.removeCheckKey(120, 896, "point3");
+        assertEquals(1, database.dump());
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
+            + "\n(point10, 600, 300)" + "\n(point11, 900, 900)", systemOut()
+                .getHistory());
+        systemOut().clearHistory();
+
+        database.insert(point1);
+        database.removeCheckKey(600, 300, "point10");
+        assertEquals(1, database.dump());
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
+            + "\n(point1, 500, 250)" + "\n(point11, 900, 900)", systemOut()
+                .getHistory());
+        systemOut().clearHistory();
+
+        // Leaf node
+        database.removeCheckKey(900, 900, "point11");
+        assertEquals(1, database.dump());
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
+            + "\n(point1, 500, 250)", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // Point not in leaf node
+        Point temp6 = database.removeCheckKey(900, 900, "point11");
+        assertEquals(1, database.dump());
+        assertNull(temp6);
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
+            + "\n(point1, 500, 250)", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // Point not in leaf node, name is wrong
+        Point temp7 = database.removeCheckKey(1, 1, "point11");
+        assertEquals(1, database.dump());
+        assertNull(temp7);
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
+            + "\n(point1, 500, 250)", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // Point not in leaf node, point value is wrong (y)
+        Point temp8 = database.removeCheckKey(10, 1, "point6");
+        assertEquals(1, database.dump());
+        assertNull(temp8);
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
+            + "\n(point1, 500, 250)", systemOut().getHistory());
+        systemOut().clearHistory();
+
+        // Point not in leaf node, point value is wrong (x)
+        Point temp9 = database.removeCheckKey(1, 10, "point6");
+        assertEquals(1, database.dump());
+        assertNull(temp9);
+        assertFuzzyEquals("Node at 0, 0, 1024:" + "\n(point6, 1, 1)"
+            + "\n(point1, 500, 250)", systemOut().getHistory());
+        systemOut().clearHistory();
+
     }
 
 }

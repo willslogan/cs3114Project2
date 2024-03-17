@@ -70,13 +70,12 @@ public class EmptyNode implements QuadNode {
      * @return int number of QuadNodes printed
      */
     @Override
-    public int dump(Rectangle region, int indents) {
-        // TODO Auto-generated method stub
+    public int dump(Rectangle quadrant, int indents) {
         String indentsString = "";
         for (int i = 0; i < indents; i++) {
-            indentsString += "\t";
+            indentsString += "  ";
         }
-        System.out.println(indentsString + "Node at " + region + ": Empty");
+        System.out.println(indentsString + "Node at " + quadrant + ": Empty");
         return 1;
 
     }
@@ -160,8 +159,7 @@ public class EmptyNode implements QuadNode {
      * @return Point point being removed
      */
     @Override
-    public Point removeCheckKey(int x, int y, Rectangle region, String name) {
-        // TODO Auto-generated method stub
+    public Point removeCheckKey(int x, int y, Rectangle quadrant, String name) {
         return null;
     }
 

@@ -11,17 +11,26 @@ public class Rectangle {
     private int xCoordinate;
     // the y coordinate of the rectangle
     private int yCoordinate;
-    
+
     private int size;
-    
-    
+
+    /**
+     * Constructor
+     * 
+     * @param x
+     *            x coordinate
+     * @param y
+     *            y coordinate
+     * @param size
+     *            size of rectangle
+     */
     public Rectangle(int x, int y, int size) {
         xCoordinate = x;
         yCoordinate = y;
         this.size = size;
     }
 
-    
+
     /**
      * Getter for the x coordinate
      *
@@ -41,10 +50,21 @@ public class Rectangle {
         return yCoordinate;
     }
 
+
+    /**
+     * Getter for size
+     * 
+     * @return returns size of rectangle
+     */
     public int getSize() {
         return size;
     }
-    
+
+
+    /**
+     * String version to Rectangle
+     * @return String version of rectangle
+     */
     public String toString() {
         return "" + xCoordinate + ", " + yCoordinate + ", " + size;
     }

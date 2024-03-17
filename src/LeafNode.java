@@ -35,6 +35,7 @@ public class LeafNode implements QuadNode {
      * @return ArrayList A list of all unique points contained within each child
      *         node
      */
+
     @Override
     public ArrayList<Point> uniquePoints() {
         ArrayList<Point> uniquePoints = new ArrayList<Point>();
@@ -87,11 +88,11 @@ public class LeafNode implements QuadNode {
      *         quadtree
      */
     @Override
-    public QuadNode insert(Point point, Rectangle region) {
+    public QuadNode insert(Point point, Rectangle quadrant) {
         boolean shouldSplit = shouldSplit(point);
         if (shouldSplit) {
             // Split
-            InternalNode splitNode = new InternalNode(region);
+            InternalNode splitNode = new InternalNode(quadrant);
 
             for (int i = 0; i < points.size(); i++) {
                 // Insert Previous nodes
@@ -120,7 +121,7 @@ public class LeafNode implements QuadNode {
      * @return Point Point that has been removed
      */
     @Override
-    public Point remove(int x, int y, Rectangle region) {
+    public Point remove(int x, int y, Rectangle quadrant) {
         Point removed = null;
         for (int i = 0; i < points.size(); i++) {
 
@@ -145,14 +146,14 @@ public class LeafNode implements QuadNode {
      * @return int number of QuadNodes printed
      */
     @Override
-    public int dump(Rectangle region, int indents) {
+    public int dump(Rectangle quadrant, int indents) {
 
         String indentsString = "";
         for (int i = 0; i < indents; i++) {
             indentsString += "  ";
         }
 
-        System.out.println(indentsString + "Node at " + region + ":");
+        System.out.println(indentsString + "Node at " + quadrant + ":");
         for (int i = 0; i < points.size(); i++) {
             System.out.println(indentsString + points.get(i));
         }
@@ -167,7 +168,6 @@ public class LeafNode implements QuadNode {
     public void duplicates() {
         int dupCount1 = 0;
         int dupCount2 = 0;
-        int dupCount3 = 0;
 
         for (int i = 0; i < points.size(); i++) {
             if (unique[0] != null) {
@@ -182,11 +182,6 @@ public class LeafNode implements QuadNode {
                 }
             }
 
-            if (unique[2] != null) {
-                if (unique[2].equals(points.get(i))) {
-                    dupCount3++;
-                }
-            }
         }
 
         if (dupCount1 > 1) {
@@ -196,11 +191,6 @@ public class LeafNode implements QuadNode {
 
         if (dupCount2 > 1) {
             System.out.println("(" + unique[1].getX() + ", " + unique[1].getY()
-                + ")");
-        }
-
-        if (dupCount3 > 1) {
-            System.out.println("(" + unique[2].getX() + ", " + unique[2].getY()
                 + ")");
         }
 
@@ -236,10 +226,7 @@ public class LeafNode implements QuadNode {
         if (point.getX() >= x && point.getY() >= y) {
             int x2 = x + w;
             int y2 = y + h;
-            if (point.getX() <= x2 && point.getY() <= y2) {
-                return true;
-            }
-            return false;
+            return point.getX() <= x2 && point.getY() <= y2;
         }
         return false;
     }
@@ -308,8 +295,7 @@ public class LeafNode implements QuadNode {
      * @return Point point being removed
      */
     @Override
-    public Point removeCheckKey(int x, int y, Rectangle region, String name) {
-        // TODO Auto-generated method stub
+    public Point removeCheckKey(int x, int y, Rectangle quadrant, String name) {
         Point removed = null;
         for (int i = 0; i < points.size(); i++) {
 
@@ -330,18 +316,14 @@ public class LeafNode implements QuadNode {
         if (countUnique == 0) {
             return false;
         }
-        if (countUnique == 1 && p.equals(unique[0])) {
+        else if (countUnique == 1 && p.equals(unique[0])) {
             return false;
         }
-        if (countUnique == 1 && points.size() < 3) {
-            return false;
-        }
-
-        if (countUnique == 2 && points.size() == 2) {
+        else if (countUnique == 1 && points.size() < 3) {
             return false;
         }
 
-        return true;
+        return !(countUnique == 2 && points.size() == 2);
     }
 
 

@@ -21,10 +21,6 @@ public class QuadTree {
      * 
      * @param point
      *            Point to be added
-     * @param quadrant
-     *            Quadrant currently in
-     * @return QuadNode This is node is used for maintaining structure of
-     *         quadtree
      */
     public void insert(Point point) {
         this.root = this.root.insert(point, defaultRegion);
@@ -38,7 +34,6 @@ public class QuadTree {
      *            x coordinate
      * @param y
      *            y coordinate
-     * @param quadrant
      * @return Point Point that has been removed
      */
     public Point remove(int x, int y) {
@@ -56,9 +51,7 @@ public class QuadTree {
      *            x coordinate of the point being removed
      * @param y
      *            y coordinate of the point being removed
-     * @param quadrant
-     *            quadrant currently in
-     * @param name
+     * @param key
      *            name of point being removed
      * @return Point point being removed
      */
@@ -72,10 +65,6 @@ public class QuadTree {
     /**
      * Returns contents of the InternalNode
      * 
-     * @param quadrant
-     *            Quadrant currently in. Used in leaf for printing
-     * @param indents
-     *            Number of indents for proper formatting
      * @return int number of QuadNodes printed
      */
     public int dump() {

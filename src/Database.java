@@ -121,10 +121,6 @@ public class Database {
      *            x-coordinate of the rectangle to be removed
      * @param y
      *            x-coordinate of the rectangle to be removed
-     * @param w
-     *            width of the rectangle to be removed
-     * @param h
-     *            height of the rectangle to be removed
      */
     public void remove(int x, int y) {
         Point temp = new Point(x, y, "temp");

@@ -217,8 +217,17 @@ public class SkipList<K extends Comparable<? super K>, V>
         // Return removedItem
         return removedItem;
     }
-    
-    @SuppressWarnings("unchecked")
+
+
+    /**
+     * Removes by value but ensures key matches so there is between databases
+     * 
+     * @param key
+     *            Key that is going to be checked
+     * @param val
+     *            Value that is being removed
+     * @return Item that was removed
+     */
     public KVPair<K, V> removeByValueKeyCheck(K key, V val) {
         SkipNode[] update = (SkipNode[])Array.newInstance(
             SkipList.SkipNode.class, head.level + 1);
@@ -231,7 +240,8 @@ public class SkipList<K extends Comparable<? super K>, V>
 
         for (int i = head.level; i >= 0; i--) {
             while (current.forward[i] != null && !current.forward[i].element()
-                .getValue().equals(val) && !current.forward[i].element().getKey().equals(key)) {
+                .getValue().equals(val) && !current.forward[i].element()
+                    .getKey().equals(key)) {
                 current = current.forward[i];
             }
             update[i] = current;
@@ -260,7 +270,7 @@ public class SkipList<K extends Comparable<? super K>, V>
         // Return removedItem
         return removedItem;
     }
-    
+
 
     /**
      * Prints out the SkipList in a human readable format to the console.

@@ -89,7 +89,8 @@ public class DatabaseTest extends TestCase {
         // Test valid rectangle
         data.regionsearch(5, 5, 10, 10);
         assertEquals(systemOut().getHistory(),
-            "Points intersecting region (5, 5, 10, 10):\n1 quadtree nodes visited\n");
+            "Points intersecting region (5, 5, 10, 10):"
+            + "\n1 quadtree nodes visited\n");
         systemOut().clearHistory();
 
     }

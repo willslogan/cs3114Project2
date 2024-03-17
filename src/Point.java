@@ -117,10 +117,6 @@ public class Point {
         if (getX() < 0 || getX() > 1024) {
             return false;
         }
-        if (getY() < 0 || getY() > 1024) {
-            return false;
-        }
-
-        return true;
+        return !(getY() < 0 || getY() > 1024);
     }
 }

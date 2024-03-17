@@ -8,10 +8,10 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class InternalNode implements QuadNode {
-    private QuadNode NE;
-    private QuadNode NW;
-    private QuadNode SE;
-    private QuadNode SW;
+    private QuadNode ne;
+    private QuadNode nw;
+    private QuadNode se;
+    private QuadNode sw;
     private Rectangle region;
 
     /**
@@ -21,10 +21,10 @@ public class InternalNode implements QuadNode {
      *            region to be stored
      */
     public InternalNode(Rectangle region) {
-        this.NW = EmptyNode.getInstance();
-        this.NE = EmptyNode.getInstance();
-        this.SE = EmptyNode.getInstance();
-        this.SW = EmptyNode.getInstance();
+        this.nw = EmptyNode.getInstance();
+        this.ne = EmptyNode.getInstance();
+        this.se = EmptyNode.getInstance();
+        this.sw = EmptyNode.getInstance();
         this.region = region;
     }
 
@@ -40,86 +40,86 @@ public class InternalNode implements QuadNode {
 
 
     /**
-     * Getter for NE node
+     * Getter for ne node
      * 
-     * @return NE
+     * @return ne
      */
-    public QuadNode getNE() {
-        return NE;
+    public QuadNode getNe() {
+        return ne;
     }
 
 
     /**
-     * Getter for NW node
+     * Getter for nw node
      * 
-     * @return NW
+     * @return nw
      */
-    public QuadNode getNW() {
-        return NW;
+    public QuadNode getNw() {
+        return nw;
     }
 
 
     /**
-     * Getter for SE node
+     * Getter for se node
      * 
-     * @return SE
+     * @return se
      */
-    public QuadNode getSE() {
-        return SE;
+    public QuadNode getSe() {
+        return se;
     }
 
 
     /**
-     * Getter for SW node
+     * Getter for sw node
      * 
-     * @return SW
+     * @return sw
      */
-    public QuadNode getSW() {
-        return SW;
+    public QuadNode getSw() {
+        return sw;
     }
 
 
     /**
-     * Setter for NE node
+     * Setter for ne node
      * 
-     * @param NE
+     * @param ne
      *            node to set to
      */
-    public void setNE(QuadNode NE) {
-        this.NE = NE;
+    public void setNe(QuadNode ne) {
+        this.ne = ne;
     }
 
 
     /**
-     * Setter for NW node
+     * Setter for nw node
      * 
-     * @param NW
+     * @param nw
      *            node to set to
      */
-    public void setNW(QuadNode NW) {
-        this.NW = NW;
+    public void setNw(QuadNode nw) {
+        this.nw = nw;
     }
 
 
     /**
-     * Setter for SE node
+     * Setter for se node
      * 
-     * @param SE
+     * @param se
      *            node to set to
      */
-    public void setSE(QuadNode SE) {
-        this.SE = SE;
+    public void setSe(QuadNode se) {
+        this.se = se;
     }
 
 
     /**
-     * Setter for SW node
+     * Setter for sw node
      * 
-     * @param SW
+     * @param sw
      *            node to set to
      */
-    public void setSW(QuadNode SW) {
-        this.SW = SW;
+    public void setSw(QuadNode sw) {
+        this.sw = sw;
     }
 
 
@@ -147,13 +147,13 @@ public class InternalNode implements QuadNode {
             if (point.getY() < regionYMidpoint) {
                 updateRegion = new Rectangle(quadrant.getxCoordinate(), quadrant
                     .getyCoordinate(), quadrant.getSize() / 2);
-                setNW(NW.insert(point, updateRegion));
+                setNw(nw.insert(point, updateRegion));
             }
             // Bottom left
             else {
                 updateRegion = new Rectangle(quadrant.getxCoordinate(),
                     regionYMidpoint, quadrant.getSize() / 2);
-                setSW(SW.insert(point, updateRegion));
+                setSw(sw.insert(point, updateRegion));
             }
         }
         // Right Side
@@ -162,13 +162,13 @@ public class InternalNode implements QuadNode {
             if (point.getY() < regionYMidpoint) {
                 updateRegion = new Rectangle(regionXMidpoint, quadrant
                     .getyCoordinate(), quadrant.getSize() / 2);
-                setNE(NE.insert(point, updateRegion));
+                setNe(ne.insert(point, updateRegion));
             }
             // Bottom Right
             else {
                 updateRegion = new Rectangle(regionXMidpoint, regionYMidpoint,
                     quadrant.getSize() / 2);
-                setSE(SE.insert(point, updateRegion));
+                setSe(se.insert(point, updateRegion));
             }
         }
         return this;
@@ -187,7 +187,6 @@ public class InternalNode implements QuadNode {
      */
     @Override
     public Point remove(int x, int y, Rectangle quadrant) {
-        // TODO Auto-generated method stub
         int regionXMidpoint = (quadrant.getxCoordinate() + quadrant.getSize()
             / 2);
         int regionYMidpoint = (quadrant.getyCoordinate() + quadrant.getSize()
@@ -200,13 +199,13 @@ public class InternalNode implements QuadNode {
             if (y < regionYMidpoint) {
                 updateRegion = new Rectangle(quadrant.getxCoordinate(), quadrant
                     .getyCoordinate(), quadrant.getSize() / 2);
-                removed = NW.remove(x, y, updateRegion);
+                removed = nw.remove(x, y, updateRegion);
             }
             // Bottom left
             else {
                 updateRegion = new Rectangle(quadrant.getxCoordinate(),
                     regionYMidpoint, quadrant.getSize() / 2);
-                removed = SW.remove(x, y, updateRegion);
+                removed = sw.remove(x, y, updateRegion);
             }
         }
         // Right Side
@@ -215,13 +214,13 @@ public class InternalNode implements QuadNode {
             if (y < regionYMidpoint) {
                 updateRegion = new Rectangle(regionXMidpoint, quadrant
                     .getyCoordinate(), quadrant.getSize() / 2);
-                removed = NE.remove(x, y, updateRegion);
+                removed = ne.remove(x, y, updateRegion);
             }
             // Bottom Right
             else {
                 updateRegion = new Rectangle(regionXMidpoint, regionYMidpoint,
                     quadrant.getSize() / 2);
-                removed = SE.remove(x, y, updateRegion);
+                removed = se.remove(x, y, updateRegion);
             }
         }
 
@@ -261,19 +260,19 @@ public class InternalNode implements QuadNode {
 
         updateRegion = new Rectangle(quadrant.getxCoordinate(), quadrant
             .getyCoordinate(), quadrant.getSize() / 2);
-        nodesCountNW = getNW().dump(updateRegion, indents + 1);
+        nodesCountNW = getNw().dump(updateRegion, indents + 1);
 
         updateRegion = new Rectangle(regionXMidpoint, quadrant.getyCoordinate(),
             quadrant.getSize() / 2);
-        nodesCountNE = getNE().dump(updateRegion, indents + 1);
+        nodesCountNE = getNe().dump(updateRegion, indents + 1);
 
         updateRegion = new Rectangle(quadrant.getxCoordinate(), regionYMidpoint,
             quadrant.getSize() / 2);
-        nodesCountSW = getSW().dump(updateRegion, indents + 1);
+        nodesCountSW = getSw().dump(updateRegion, indents + 1);
 
         updateRegion = new Rectangle(regionXMidpoint, regionYMidpoint, quadrant
             .getSize() / 2);
-        nodesCountSE = getSE().dump(updateRegion, indents + 1);
+        nodesCountSE = getSe().dump(updateRegion, indents + 1);
 
         return nodesCountNW + nodesCountNE + nodesCountSW + nodesCountSE + 1;
     }
@@ -284,11 +283,10 @@ public class InternalNode implements QuadNode {
      */
     @Override
     public void duplicates() {
-        // TODO Auto-generated method stub
-        NW.duplicates();
-        NE.duplicates();
-        SW.duplicates();
-        SE.duplicates();
+        nw.duplicates();
+        ne.duplicates();
+        sw.duplicates();
+        se.duplicates();
     }
 
 
@@ -307,7 +305,6 @@ public class InternalNode implements QuadNode {
      */
     @Override
     public int regionsearch(int x, int y, int w, int h) {
-        // TODO Auto-generated method stub
         int count = 1;
         int regionXMidpoint = (region.getxCoordinate() + region.getSize() / 2);
         int regionYMidpoint = (region.getyCoordinate() + region.getSize() / 2);
@@ -322,20 +319,20 @@ public class InternalNode implements QuadNode {
             regionYMidpoint, region.getSize() / 2);
 
         if (intersect(leftTopRegion, x, y, w, h)) {
-            count += NW.regionsearch(x, y, w, h);
+            count += nw.regionsearch(x, y, w, h);
 
         }
 
         if (intersect(rightTopRegion, x, y, w, h)) {
-            count += NE.regionsearch(x, y, w, h);
+            count += ne.regionsearch(x, y, w, h);
         }
 
         if (intersect(leftBotRegion, x, y, w, h)) {
-            count += SW.regionsearch(x, y, w, h);
+            count += sw.regionsearch(x, y, w, h);
         }
 
         if (intersect(rightBotRegion, x, y, w, h)) {
-            count += SE.regionsearch(x, y, w, h);
+            count += se.regionsearch(x, y, w, h);
         }
 
         return count;
@@ -343,18 +340,18 @@ public class InternalNode implements QuadNode {
     }
 
 
-    private boolean intersect(Rectangle region, int x, int y, int w, int h) {
+    private boolean intersect(Rectangle quadrant, int x, int y, int w, int h) {
         // Check if the any points of the rectangle intersect
-        if (!(region.getxCoordinate() < (x + w))) {
+        if (!(quadrant.getxCoordinate() < (x + w))) {
             return false;
         }
-        else if (!((region.getxCoordinate() + region.getSize()) > x)) {
+        else if (!((quadrant.getxCoordinate() + quadrant.getSize()) > x)) {
             return false;
         }
-        else if (!(region.getyCoordinate() < (y + h))) {
+        else if (!(quadrant.getyCoordinate() < (y + h))) {
             return false;
         }
-        else if (!((region.getyCoordinate() + region.getSize()) > y)) {
+        else if (!((quadrant.getyCoordinate() + quadrant.getSize()) > y)) {
             return false;
         }
         else {
@@ -373,10 +370,10 @@ public class InternalNode implements QuadNode {
     public ArrayList<Point> uniquePoints() {
         ArrayList<Point> combinedPoints = new ArrayList<Point>();
 
-        ArrayList<Point> nwPoints = NW.uniquePoints();
-        ArrayList<Point> nePoints = NE.uniquePoints();
-        ArrayList<Point> swPoints = SW.uniquePoints();
-        ArrayList<Point> sePoints = SE.uniquePoints();
+        ArrayList<Point> nwPoints = nw.uniquePoints();
+        ArrayList<Point> nePoints = ne.uniquePoints();
+        ArrayList<Point> swPoints = sw.uniquePoints();
+        ArrayList<Point> sePoints = se.uniquePoints();
 
         if (nwPoints != null) {
             combinedPoints.addAll(nwPoints);
@@ -401,10 +398,10 @@ public class InternalNode implements QuadNode {
      * @return QuadNode Used to maintain structure of the tree
      */
     public QuadNode merge() {
-        setNW(NW.merge());
-        setNE(NE.merge());
-        setSW(SW.merge());
-        setSE(SE.merge());
+        setNw(nw.merge());
+        setNe(ne.merge());
+        setSw(sw.merge());
+        setSe(se.merge());
 
         ArrayList<Point> allPoints = pointsContained();
 
@@ -431,10 +428,10 @@ public class InternalNode implements QuadNode {
     @Override
     public ArrayList<Point> pointsContained() {
         ArrayList<Point> combinedPoints = new ArrayList<Point>();
-        ArrayList<Point> nwPoints = NW.pointsContained();
-        ArrayList<Point> nePoints = NE.pointsContained();
-        ArrayList<Point> swPoints = SW.pointsContained();
-        ArrayList<Point> sePoints = SE.pointsContained();
+        ArrayList<Point> nwPoints = nw.pointsContained();
+        ArrayList<Point> nePoints = ne.pointsContained();
+        ArrayList<Point> swPoints = sw.pointsContained();
+        ArrayList<Point> sePoints = se.pointsContained();
 
         if (nwPoints != null) {
             combinedPoints.addAll(nwPoints);
@@ -469,7 +466,6 @@ public class InternalNode implements QuadNode {
      */
     @Override
     public Point removeCheckKey(int x, int y, Rectangle quadrant, String name) {
-        // TODO Auto-generated method stub
         int regionXMidpoint = (quadrant.getxCoordinate() + quadrant.getSize()
             / 2);
         int regionYMidpoint = (quadrant.getyCoordinate() + quadrant.getSize()
@@ -482,13 +478,13 @@ public class InternalNode implements QuadNode {
             if (y < regionYMidpoint) {
                 updateRegion = new Rectangle(quadrant.getxCoordinate(), quadrant
                     .getyCoordinate(), quadrant.getSize() / 2);
-                removed = NW.remove(x, y, updateRegion);
+                removed = nw.remove(x, y, updateRegion);
             }
             // Bottom left
             else {
                 updateRegion = new Rectangle(quadrant.getxCoordinate(),
                     regionYMidpoint, quadrant.getSize() / 2);
-                removed = SW.remove(x, y, updateRegion);
+                removed = sw.remove(x, y, updateRegion);
             }
         }
         // Right Side
@@ -497,13 +493,13 @@ public class InternalNode implements QuadNode {
             if (y < regionYMidpoint) {
                 updateRegion = new Rectangle(regionXMidpoint, quadrant
                     .getyCoordinate(), quadrant.getSize() / 2);
-                removed = NE.remove(x, y, updateRegion);
+                removed = ne.remove(x, y, updateRegion);
             }
             // Bottom Right
             else {
                 updateRegion = new Rectangle(regionXMidpoint, regionYMidpoint,
                     quadrant.getSize() / 2);
-                removed = SE.remove(x, y, updateRegion);
+                removed = se.remove(x, y, updateRegion);
             }
         }
 
@@ -519,15 +515,11 @@ public class InternalNode implements QuadNode {
             return true;
         }
 
-        if (unique.size() == 2 && allPoints.size() < 4) {
+        else if (unique.size() == 2 && allPoints.size() < 4) {
             return true;
         }
 
-        if (unique.size() == 3 && allPoints.size() == 3) {
-            return true;
-        }
-
-        return false;
+        return unique.size() == 3 && allPoints.size() == 3;
 
     }
 

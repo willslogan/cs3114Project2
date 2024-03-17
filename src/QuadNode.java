@@ -28,6 +28,7 @@ public interface QuadNode {
      * @param y
      *            y coordinate
      * @param quadrant
+     *            quadrant point is being removed
      * @return Point Point that has been removed
      */
     public Point remove(int x, int y, Rectangle quadrant);
@@ -59,7 +60,7 @@ public interface QuadNode {
      *            Number of indents for proper formatting
      * @return int number of QuadNodes printed
      */
-    public int dump(Rectangle region, int indents);
+    public int dump(Rectangle quadrant, int indents);
 
 
     /**
