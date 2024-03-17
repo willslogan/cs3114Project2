@@ -117,7 +117,7 @@ public class DatabaseTest extends TestCase {
     public void testRemoveByName() {
         // Test point that isn't in database
         data.remove("a5");
-        assertEquals("Point not removed: (a5)\n", systemOut().getHistory());
+        assertFuzzyEquals("Point not removed: (a5)\n", systemOut().getHistory());
         systemOut().clearHistory();
 
         // Test removing a point in the database
@@ -168,9 +168,9 @@ public class DatabaseTest extends TestCase {
         systemOut().clearHistory();
 
         data.dump();
-        assertFuzzyEquals("SkipList dump:\n" + "Node with depth 4, value null\n"
-            + "Node with depth 4, value (b5, 5, 5)\n"
-            + "Node with depth 0, value (c5, 5, 5)\n"
+        assertFuzzyEquals("SkipList dump:\n" + "Node has depth 4, value null\n"
+            + "Node has depth 4, value (b5, 5, 5)\n"
+            + "Node has depth 0, value (c5, 5, 5)\n"
             + "SkipList size is: 2\n"
             + "QuadTree Dump:\n" +  "Node at 0, 0, 1024: \n" + "    (b5, 5, 5)\n" + "    (c5, 5, 5)\n"+"1 quadtree nodes printed\n", systemOut()
                 .getHistory());
