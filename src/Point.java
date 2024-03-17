@@ -1,4 +1,6 @@
 /**
+ * Point Class
+ * 
  * @author Will Logan
  * @version 1.0
  */
@@ -59,6 +61,7 @@ public class Point {
         return name;
     }
 
+
     /**
      * Checks if two points are equal. Points are considered equal if they have
      * the same x and y coordinate
@@ -108,16 +111,15 @@ public class Point {
     /**
      * Check if the point has valid parameters
      * 
-     * @return true if the points has valid parameters, false if not 
+     * @return true if the points has valid parameters, false if not
      */
     public boolean isValid() {
-        if(getX() < 0 || getX() > 1024) {
+        if (getX() < 0 || getX() > 1024) {
             return false;
         }
         if (getY() < 0 || getY() > 1024) {
             return false;
         }
-
 
         return true;
     }

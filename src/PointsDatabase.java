@@ -2,25 +2,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-//On my honor:
+// On my honor:
 //
-//- I have not used source code obtained from another student,
-//or any other unauthorized source, either modified or
-//unmodified.
+// - I have not used source code obtained from another student,
+// or any other unauthorized source, either modified or
+// unmodified.
 //
-//- All source code and documentation used in my program is
-//either my original work, or was derived by me from the
-//source code published in the textbook for this course.
+// - All source code and documentation used in my program is
+// either my original work, or was derived by me from the
+// source code published in the textbook for this course.
 //
-//- I have not discussed coding details about this project with
-//anyone other than my partner (in the case of a joint
-//submission), instructor, ACM/UPE tutors or the TAs assigned
-//to this course. I understand that I may discuss the concepts
-//of this program with other students, and that another student
-//may help me debug my program so long as neither of us writes
-//anything during the discussion or modifies any computer file
-//during the discussion. I have violated neither the spirit nor
-//letter of this restriction.
+// - I have not discussed coding details about this project with
+// anyone other than my partner (in the case of a joint
+// submission), instructor, ACM/UPE tutors or the TAs assigned
+// to this course. I understand that I may discuss the concepts
+// of this program with other students, and that another student
+// may help me debug my program so long as neither of us writes
+// anything during the discussion or modifies any computer file
+// during the discussion. I have violated neither the spirit nor
+// letter of this restriction.
 
 /**
  * The class containing the main method, the entry point of the application. It
@@ -32,7 +32,7 @@ import java.util.Scanner;
  * @version 1.0
  */
 public class PointsDatabase {
-    
+
     /**
      * The entry point of the application.
      *
@@ -41,7 +41,7 @@ public class PointsDatabase {
      *            argument.
      */
     public static void main(String[] args) {
-     // the file containing the commands
+        // the file containing the commands
         File file = null;
 
         // Attempts to open the file and scan through it
@@ -76,5 +76,5 @@ public class PointsDatabase {
         }
 
     }
-        
+
 }

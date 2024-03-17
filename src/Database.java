@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.ArrayList;
 
 /**
@@ -15,9 +14,9 @@ import java.util.ArrayList;
  * determine
  * which command should be directed to which data structure.
  * 
- * @author CS Staff
+ * @author Will Logan and Jacob Fast
  * 
- * @version 2021-08-23
+ * @version 1.0
  */
 public class Database {
 
@@ -101,13 +100,14 @@ public class Database {
 
         // Point was found and successfully removed from the list
         if (tempKV != null) {
-            quadtreeDB.removeCheckKey(tempKV.getValue().getX(), tempKV.getValue().getY(), name);
+            quadtreeDB.removeCheckKey(tempKV.getValue().getX(), tempKV
+                .getValue().getY(), name);
             System.out.println("Point removed: " + tempKV.getValue());
         }
 
         // Point with specified rectangle doesn't exist within the list
         else {
-            System.out.println("Point not removed: " + name );
+            System.out.println("Point not removed: " + name);
         }
 
     }
@@ -191,7 +191,7 @@ public class Database {
         ArrayList<KVPair<String, Point>> results = list.search(name);
         // No rectangle was found with that name
         if (results == null) {
-            System.out.println("Point not found: " + name );
+            System.out.println("Point not found: " + name);
         }
         // One or more rectangle was found with name
         else {
@@ -217,6 +217,9 @@ public class Database {
     }
 
 
+    /**
+     * Finds duplicates with the Database
+     */
     public void duplicates() {
         System.out.println("Duplicate points:");
         quadtreeDB.duplicates();

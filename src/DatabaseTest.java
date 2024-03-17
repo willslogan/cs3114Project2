@@ -1,6 +1,8 @@
 import student.TestCase;
 
 /**
+ * Database Test class
+ * 
  * @author Jacob Fast
  * @version 1.0
  */
@@ -37,7 +39,7 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * 
+     * Test for insert
      */
     public void testInsert() {
         // test inserting a point with an invalid name
@@ -70,7 +72,7 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * 
+     * Test for region search
      */
     public void testRegionSearch() {
         // Test all possible invalid rectangle
@@ -94,7 +96,7 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * 
+     * Test for search
      */
     public void testSearch() {
         // Test point that isn't in the database
@@ -107,17 +109,19 @@ public class DatabaseTest extends TestCase {
         data.insert(sName);
         systemOut().clearHistory();
         data.search("b5");
-        assertEquals(systemOut().getHistory(), "Found (b5, 10, 10)\n" + "Found (b5, 5, 5)\n");
+        assertEquals(systemOut().getHistory(), "Found (b5, 10, 10)\n"
+            + "Found (b5, 5, 5)\n");
     }
 
 
     /**
-     * 
+     * Tests for remove by name
      */
     public void testRemoveByName() {
         // Test point that isn't in database
         data.remove("a5");
-        assertFuzzyEquals("Point not removed: (a5)\n", systemOut().getHistory());
+        assertFuzzyEquals("Point not removed: (a5)\n", systemOut()
+            .getHistory());
         systemOut().clearHistory();
 
         // Test removing a point in the database
@@ -131,7 +135,7 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * 
+     * Tests for remove by value
      */
     public void testRemoveByValue() {
         // Test invalid points
@@ -160,7 +164,7 @@ public class DatabaseTest extends TestCase {
 
 
     /**
-     * 
+     * Tests for Dump
      */
     public void testDump() {
         data.insert(pair);
@@ -170,23 +174,24 @@ public class DatabaseTest extends TestCase {
         data.dump();
         assertFuzzyEquals("SkipList dump:\n" + "Node has depth 4, value null\n"
             + "Node has depth 4, value (b5, 5, 5)\n"
-            + "Node has depth 0, value (c5, 5, 5)\n"
-            + "SkipList size is: 2\n"
-            + "QuadTree Dump:\n" +  "Node at 0, 0, 1024: \n" + "    (b5, 5, 5)\n" + "    (c5, 5, 5)\n"+"1 quadtree nodes printed\n", systemOut()
+            + "Node has depth 0, value (c5, 5, 5)\n" + "SkipList size is: 2\n"
+            + "QuadTree Dump:\n" + "Node at 0, 0, 1024: \n" + "    (b5, 5, 5)\n"
+            + "    (c5, 5, 5)\n" + "1 quadtree nodes printed\n", systemOut()
                 .getHistory());
 
     }
 
 
     /**
-     * 
+     * Tests for duplicates
      */
     public void testDuplicates() {
         data.insert(pair);
         data.insert(diffName);
         systemOut().clearHistory();
-        
+
         data.duplicates();
-        assertFuzzyEquals("Duplicate points:\n(5, 5)\n", systemOut().getHistory());
+        assertFuzzyEquals("Duplicate points:\n(5, 5)\n", systemOut()
+            .getHistory());
     }
 }
